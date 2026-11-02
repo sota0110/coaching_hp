@@ -1,0 +1,15 @@
+html { scroll-behavior: smooth; }
+button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid #73856c; outline-offset: 4px; }
+.react-slider { position: relative; overflow: hidden; }
+.react-slider .react-slide { position: absolute; inset: 0; width: 100%; transition: opacity 1.5s ease; }
+.slide-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; border: 0; background: transparent; color: #fff; font-size: 34px; cursor: pointer; text-shadow: 0 1px 5px #555; }
+.slide-arrow.prev { left: 10px; }.slide-arrow.next { right: 10px; }
+.slide-dots { position: absolute; bottom: 8px; width: 100%; display: flex; justify-content: center; gap: 8px; z-index: 2; }
+.slide-dots button { padding: 0; height: 8px; width: 8px; border-radius: 50%; border: 0; background: #ffffff80; cursor: pointer; }
+.slide-dots button[aria-current] { background: #73856c; }
+.react-navigation[hidden] { display: none !important; }
+.react-navigation.is-open { display: block !important; position: fixed; visibility: visible !important; opacity: 1 !important; transform: none !important; top: 0 !important; left: 0 !important; bottom: 0; max-height: 100dvh; overflow-y: auto; z-index: 10001; width: min(85vw, 360px); padding-top: 55px; background: #fff; }
+#vk-mobile-nav-menu-btn { cursor: pointer; z-index: 10002; }
+#vk-mobile-nav-menu-btn.menu-is-open { background-image: none; font-size: 9px; line-height: 30px; text-indent: 0; color: #555; }
+.menu-backdrop { position: fixed; inset: 0; background: #0005; border: 0; z-index: 10000; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; }.react-slider .react-slide { transition: none; } }

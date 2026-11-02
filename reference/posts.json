@@ -1,0 +1,139 @@
+[
+  {
+    "id": 255,
+    "date": "2026-09-21T15:16:24",
+    "date_gmt": "2026-09-21T06:16:24",
+    "guid": {
+      "rendered": "https://coaching-therapy.jp/?p=255"
+    },
+    "modified": "2026-10-25T18:39:37",
+    "modified_gmt": "2026-10-25T09:39:37",
+    "slug": "%e3%83%9b%e3%83%bc%e3%83%a0%e3%83%9a%e3%83%bc%e3%82%b8%e5%ae%8c%e6%88%90%e3%81%97%e3%81%be%e3%81%97%e3%81%9f%ef%bc%81",
+    "status": "publish",
+    "type": "post",
+    "link": "https://coaching-therapy.jp/2026/09/21/%e3%83%9b%e3%83%bc%e3%83%a0%e3%83%9a%e3%83%bc%e3%82%b8%e5%ae%8c%e6%88%90%e3%81%97%e3%81%be%e3%81%97%e3%81%9f%ef%bc%81/",
+    "title": {
+      "rendered": "ホームページ完成しました！"
+    },
+    "content": {
+      "rendered": "\n<p class=\"wp-block-paragraph\">こんにちは！<br>この度<strong>ホームページ</strong>を立ち上げました。<br><br><br><strong>Instagram　LINE　アメブロ　note</strong>　<br>の情報を<br>一つに集約し、ご予約もこのサイトから<br>簡単にできるようになりました。　<br>どうぞよろしくお願いいたします。</p>\n\n\n\n<p class=\"wp-block-paragraph\">（※スイミーサロンのホームページは<br> 2027年からリニューアルして、<br>プライベートコーチングのご予約は<br> スイミーサロンからは<br> 出来なくなります）</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>こんにちは！この度ホームページを立ち上げました。 Instagram　LINE　アメブロ　note　の情報を一つに集約し、ご予約もこのサイトから簡単にできるようになりました。　どうぞよろしくお願いいたします。 （※スイミ [&hellip;]</p>\n",
+      "protected": false
+    },
+    "author": 1,
+    "featured_media": 289,
+    "comment_status": "open",
+    "ping_status": "open",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "sns_share_botton_hide": "",
+      "vkExUnit_sns_title": "",
+      "_vk_print_noindex": "",
+      "sitemap_hide": "",
+      "_veu_custom_css": "",
+      "veu_display_promotion_alert": "",
+      "vkexunit_cta_each_option": "",
+      "_lightning_design_setting": [],
+      "footnotes": ""
+    },
+    "categories": [
+      1
+    ],
+    "tags": [],
+    "class_list": [
+      "post-255",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "has-post-thumbnail",
+      "hentry",
+      "category-uncategorized"
+    ],
+    "veu_head_title_object": {
+      "title": "",
+      "add_site_title": ""
+    },
+    "_links": {
+      "self": [
+        {
+          "href": "https://coaching-therapy.jp/wp-json/wp/v2/posts/255",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://coaching-therapy.jp/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://coaching-therapy.jp/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://coaching-therapy.jp/wp-json/wp/v2/users/1"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://coaching-therapy.jp/wp-json/wp/v2/comments?post=255"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 5,
+          "href": "https://coaching-therapy.jp/wp-json/wp/v2/posts/255/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 926,
+          "href": "https://coaching-therapy.jp/wp-json/wp/v2/posts/255/revisions/926"
+        }
+      ],
+      "wp:featuredmedia": [
+        {
+          "embeddable": true,
+          "href": "https://coaching-therapy.jp/wp-json/wp/v2/media/289"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://coaching-therapy.jp/wp-json/wp/v2/media?parent=255"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://coaching-therapy.jp/wp-json/wp/v2/categories?post=255"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://coaching-therapy.jp/wp-json/wp/v2/tags?post=255"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+]
