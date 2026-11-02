@@ -1,5 +1,6 @@
 import React from 'react';
 import contactForm from './contact-form.json';
+import { localUrl } from './paths';
 
 const services = [
   {href:'/コーチング/', title:'プライベートコーチング相談', text:'まずは、ホッと一息。今の気持ちを整理し、自分らしい一歩を見つける時間です。'},
@@ -11,6 +12,6 @@ const services = [
 
 /** Two public source pages have no body. Reuse existing services and contact UI. */
 export default function EmptyPageContent({route, render}) {
-  if (route === '/メニュー/') return <div className="entry-body service-directory"><h2>サービスのご案内</h2><p>そのときのあなたに合った方法で、心を整えていきましょう。</p><div className="service-grid">{services.map(service => <article className="service-card" key={service.href}><h3>{service.title}</h3><p>{service.text}</p><a className="directory-link" href={service.href}>詳しく見る <span aria-hidden="true">→</span></a></article>)}</div></div>;
+  if (route === '/メニュー/') return <div className="entry-body service-directory"><h2>サービスのご案内</h2><p>そのときのあなたに合った方法で、心を整えていきましょう。</p><div className="service-grid">{services.map(service => <article className="service-card" key={service.href}><h3>{service.title}</h3><p>{service.text}</p><a className="directory-link" href={localUrl(service.href)}>詳しく見る <span aria-hidden="true">→</span></a></article>)}</div></div>;
   return <div className="entry-body"><p>コーチング＆セラピー講座についてのご質問・お問い合わせはこちらから。</p>{render(contactForm, 'course-contact-form')}</div>;
 }

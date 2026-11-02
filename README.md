@@ -1,6 +1,6 @@
 # Coaching Therapy — React
 
-https://coaching-therapy.jp/ の公開ページを React 19 / Vite 7 で再現したローカルプロジェクトです。外部への保存・公開は行いません。
+https://coaching-therapy.jp/ の公開ページを React 19 / Vite 7 で再現したプロジェクトです。ローカル開発とGitHub Pagesへの公開に対応しています。
 
 ## 起動
 
@@ -17,6 +17,16 @@ pnpm dev
 pnpm build
 pnpm preview
 ```
+
+ビルド後の確認URL: http://127.0.0.1:4173/coaching_hp/
+
+## GitHub Pages
+
+公開先: https://sota0110.github.io/coaching_hp/
+
+GitHubのSettings → PagesでSourceをGitHub Actionsに設定すると、mainへのpushで `.github/workflows/pages.yml` が全22ページをビルド・公開します。非公開リポジトリのPages利用には対応するGitHubプランが必要です。
+
+ローカル開発は `/`、ビルド・previewは `/coaching_hp/` を使用します。別のパスへ公開する場合は、`BASE_PATH=/別のパス/ pnpm build` で変更できます。
 
 `dist/` には22ページ分の `index.html` を出力します。トップページ以外も、元サイトと同じパスで直接開けます。
 

@@ -10,3 +10,6 @@ for (const [path, page] of Object.entries(pages)) {
   await writeFile(join(directory, 'index.html'), html.replace(/<title>.*?<\/title>/, `<title>${escape(page.title)}</title>`));
 }
 console.log(`Exported ${Object.keys(pages).length} page entry points.`);
+
+await writeFile(join(root, 'dist', '.nojekyll'), '');
+await writeFile(join(root, 'dist', '404.html'), html.replace(/<title>.*?<\/title>/, '<title>ページが見つかりません</title>'));

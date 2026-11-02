@@ -3,7 +3,8 @@ import { createRoot } from 'react-dom/client';
 import pageManifest from './page-manifest.json';
 const pageLoaders = import.meta.glob('./pages/*.json', { import: 'default' });
 import { LocalForm, BookingCalendar } from './LocalInteractions';
-const route = decodeURIComponent(window.location.pathname).replace(/\/?$/, '/');
+import { localUrl, localCss, pageRoute } from './paths';
+const route = pageRoute(window.location.pathname);
 const pageFile = pageManifest[route];
 import './reference.css';
 import './interactions.css';
@@ -24,6 +25,14 @@ function reactProps(attributes) {
         return [property.startsWith('--') ? property : property.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase()), declaration.slice(colon + 1).trim()];
       }));
     } else props[key] = booleans.has(key) ? true : value;
+  }
+  for (const key of ['href', 'src', 'poster']) {
+    if (props[key]) props[key] = localUrl(props[key]);
+  }
+  if (props.style) {
+    for (const key of Object.keys(props.style)) {
+      props.style[key] = localCss(props.style[key]);
+    }
   }
   // Navigation links retain their real destinations without toggle-button semantics.
   if (props.href) { delete props['aria-pressed']; delete props.role; }
@@ -107,7 +116,7 @@ function App() {
     return () => { cancelled = true; };
   }, []);
   if (loading) return <main className="page-loading" aria-busy="true">読み込み中…</main>;
-  if (!content) return <main className="not-found"><h1>ページが見つかりません</h1><p>URLをご確認いただくか、トップページからお進みください。</p><a href="/">トップページへ戻る</a></main>;
-  return <><style>{content.css}</style>{content.nodes.map((node, index) => renderNode(node, index))}</>;
+  if (!content) return <main className="not-found"><h1>ページが見つかりません</h1><p>URLをご確認いただくか、トップページからお進みください。</p><a href={localUrl("/")}>トップページへ戻る</a></main>;
+  return <><style>{localCss(content.css)}</style>{content.nodes.map((node, index) => renderNode(node, index))}</>;
 }
 createRoot(document.getElementById('root')).render(<App/>);
