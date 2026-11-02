@@ -10,6 +10,7 @@
 #root .page-header-title,
 #root .entry-body :is(h1, h2, h3, h4, h5, h6) {
   font-family: var(--site-font-family);
+  letter-spacing: 0.04em;
   font-weight: var(--site-heading-weight) !important;
 }
 
