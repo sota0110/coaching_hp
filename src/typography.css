@@ -1,0 +1,20 @@
+/* Use explicit typography so H1/DIV markup and nested STRONG do not change weight. */
+:root {
+  --site-font-family: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Yu Gothic', Meiryo, sans-serif;
+  --site-heading-weight: 700;
+}
+
+#site-header-container .site-header-logo,
+#site-header-container .site-header-logo a,
+#site-header-container .site-header-logo span,
+#root .page-header-title,
+#root .entry-body :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--site-font-family);
+  font-weight: var(--site-heading-weight) !important;
+}
+
+#site-header-container .site-header-logo :is(strong, b),
+#root .page-header-title :is(strong, b),
+#root .entry-body :is(h1, h2, h3, h4, h5, h6) :is(strong, b) {
+  font-weight: inherit !important;
+}

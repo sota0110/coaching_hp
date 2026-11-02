@@ -9,6 +9,7 @@ const pageFile = pageManifest[route];
 import './reference.css';
 import './interactions.css';
 import './layout.css';
+import './typography.css';
 import HomeContent from './HomeContent';
 import EmptyPageContent from './EmptyPageContent';
 
