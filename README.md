@@ -1,6 +1,6 @@
 # Coaching Therapy — React
 
-https://coaching-therapy.jp/ の公開ページを React 19 / Vite 7 で再現したプロジェクトです。ローカル開発とGitHub Pagesへの公開に対応しています。
+https://coaching-therapy.jp/ の公開ページの文章を保持し、デザインを一新した React 19 / Vite 7 プロジェクトです。ローカル開発とGitHub Pagesへの公開に対応しています。
 
 ## 起動
 
@@ -44,18 +44,21 @@ GitHubのSettings → PagesでSourceをGitHub Actionsに設定すると、main�
 
 - `src/pages/`: 各ページのサニタイズ済みコンテンツ。必要なページだけ読み込みます。
 - `src/page-manifest.json`: URLとページデータの対応表。
-- `src/main.jsx`: 共通描画、メニュー、スライダー。
+- `src/main.jsx`: 文章データの共通描画、手動スライダー。
+- `src/SiteHeader.jsx`: ブランド・共通ナビゲーション・モーダル式モバイルメニュー。
 - `src/HomeContent.jsx`: トップページのセクション・カード構成。
 - `src/LocalInteractions.jsx`: 送信しない確認用フォームとカレンダー。
-- `src/layout.css`: 余白・グリッド・高さ・画面幅ごとの共通調整。
-- `src/reference.css`: 元サイトから取り込んだスタイル。
+- `src/design.css`: 全ページ共通の新しいデザイン。配色・書体・余白・グリッド・フォーム・レスポンシブを管理します。
+- `src/reference.css` / `src/layout.css` / `src/typography.css` / `src/interactions.css`: 過去の再現用スタイル。現在は読み込みません。
 - `scripts/export-routes.mjs`: ビルド時に全ページのエントリーを生成。
 - `scripts/import-site.py`: 公開ページと素材の再取得用。ネットワーク接続が必要です。
 - `reference/`: 参照HTML、記事データ、ページ一覧。
 
 ## 確認
 
-22ページを320px・390px・768px・1280pxの画面幅で表示し、横のはみ出しがないことを確認しました。フォームの確認・修正とカレンダーの月送りも確認しています。
+22ページを320px・390px・768px・1280pxの画面幅で表示し、横のはみ出しと画像切れがないことを確認しました。フォームの確認・修正、値の保持、修正後のフォーカス、メニュー内のTab移動とEscapeでの終了、カレンダーの月送りも確認しています。
+
+本文のJSONデータは変更していません。各ページの本文を変更前と照合し、トップページ以外は文字列の一致、トップページはセクション順の変更に伴う並べ替えのみで文字の欠落がないことを確認しています。誤字や料金・所要時間の表記も原文を保持しています。
 
 元サイトで本文が空だった「メニュー」「コーチング＆セラピー講座 お問い合わせ」は、既存のサービス情報と確認用フォームで案内を補完しています。
 

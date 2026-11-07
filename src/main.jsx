@@ -6,10 +6,8 @@ import { LocalForm, BookingCalendar } from './LocalInteractions';
 import { localUrl, localCss, pageRoute } from './paths';
 const route = pageRoute(window.location.pathname);
 const pageFile = pageManifest[route];
-import './reference.css';
-import './interactions.css';
-import './layout.css';
-import './typography.css';
+import './design.css';
+import SiteHeader from './SiteHeader';
 import HomeContent from './HomeContent';
 import EmptyPageContent from './EmptyPageContent';
 
@@ -35,6 +33,8 @@ function reactProps(attributes) {
       props.style[key] = localCss(props.style[key]);
     }
   }
+  if (props.style) props.style = Object.fromEntries(Object.entries(props.style).filter(([key]) => key === 'backgroundImage'));
+  if (props.id?.startsWith('menu-') || props.id?.startsWith('post-')) delete props.id;
   // Navigation links retain their real destinations without toggle-button semantics.
   if (props.href) { delete props['aria-pressed']; delete props.role; }
   return props;
@@ -43,13 +43,7 @@ function reactProps(attributes) {
 function ImageSlider({ node }) {
   const slides = node.children.find(child => child.attrs?.class === 'swiper-wrapper')?.children.filter(child => typeof child !== 'string') || [];
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  useEffect(() => {
-    if (paused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const timer = setInterval(() => setActive(current => (current + 1) % slides.length), 7000);
-    return () => clearInterval(timer);
-  }, [paused, slides.length]);
-  return <div {...reactProps(node.attrs)} className={`${node.attrs.class} react-slider`} role="region" aria-label="サロンからのお知らせ" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
+  return <div {...reactProps(node.attrs)} className={`${node.attrs.class} react-slider`} role="region" aria-label="サロンからのお知らせ">
     {slides.map((slide, index) => <div key={index} className={`${slide.attrs.class} react-slide`} aria-hidden={index !== active} style={{ opacity: index === active ? 1 : 0 }}>{slide.children.map((child, i) => renderNode(child, i))}</div>)}
     <button className="slide-arrow prev" aria-label="前のお知らせ" onClick={() => setActive((active + slides.length - 1) % slides.length)}>‹</button>
     <button className="slide-arrow next" aria-label="次のお知らせ" onClick={() => setActive((active + 1) % slides.length)}>›</button>
@@ -57,29 +51,15 @@ function ImageSlider({ node }) {
   </div>;
 }
 
-function MobileNavigation({ node }) {
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    if (!open) return;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = previousOverflow; };
-  }, [open]);
-  useEffect(() => {
-    const handleEscape = event => { if (event.key === 'Escape') setOpen(false); };
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, []);
-  return <>
-    <button id="vk-mobile-nav-menu-btn" className={`vk-mobile-nav-menu-btn ${open ? 'menu-is-open' : ''}`} aria-label={open ? 'メニューを閉じる' : 'メニューを開く'} aria-expanded={open} aria-controls="vk-mobile-nav" onClick={() => setOpen(!open)}>{open ? '閉じる' : 'MENU'}</button>
-    {open && <button className="menu-backdrop" aria-label="メニューを閉じる" onClick={() => setOpen(false)}/>}
-    <div {...reactProps(node.attrs)} className={`${node.attrs.class} react-navigation ${open ? 'is-open' : ''}`} hidden={!open} onClick={event => { if (event.target.closest('a')) setOpen(false); }}>{node.children.map((child, i) => renderNode(child, i))}</div>
-  </>;
-}
-
-function renderNode(node, key) {
+function renderNode(node, key, inHeading = false) {
   if (!node) return null;
-  if (typeof node === 'string') return node;
+  if (typeof node === 'string') {
+    if (!inHeading) return node;
+    return <React.Fragment key={key}>{node.split(/(プライベート|コーチング|セラピー|お問い合わせ|すみいみゆき|ホッとひと息♡|はじめての方へ|自分らしい|見つける|オリジナル|セッション)/g).map((part, index) => index % 2 ? <span className="heading-phrase" key={index}>{part}</span> : part)}</React.Fragment>;
+  }
+  if (node.tag === 'style' || node.tag === 'script') return null;
+  if (node.attrs.id === 'site-header') return <SiteHeader key={key} node={node}/>;
+  if (node.attrs.class?.includes('sub-section') && !node.children.length) return null;
   if (node.attrs.id === 'booking-package-locale-ja') return <BookingCalendar key={key}/>;
   if (node.tag === 'form') return <LocalForm key={key} node={node} render={renderNode}/>;
   if (node.attrs.class?.includes('screen-reader-response') || node.attrs.class?.includes('wpcf7-turnstile') || node.attrs.class?.includes('hidden-fields-container') || node.attrs.class?.includes('wpcf7-response-output')) return null;
@@ -87,9 +67,15 @@ function renderNode(node, key) {
   if (node.tag === 'p' && !node.children.length) return null;
   if (node.attrs.class === 'entry-body' && route === '/') return <HomeContent key={key} node={node} render={renderNode}/>;
   if (node.attrs.id === 'vk-mobile-nav-menu-btn') return null;
-  if (node.attrs.id === 'vk-mobile-nav') return <MobileNavigation key={key} node={node}/>;
+  if (node.attrs.id === 'vk-mobile-nav') return null;
   if (node.attrs.class?.includes('wp-block-vk-blocks-slider ')) return <ImageSlider key={key} node={node}/>;
   const props = { ...reactProps(node.attrs), key };
+  if (props.href?.endsWith('#vk-mobile-nav')) props.onClick = event => {
+    event.preventDefault();
+    const toggle = document.querySelector('.menu-toggle');
+    if (toggle && getComputedStyle(toggle).display !== 'none') toggle.click();
+    else document.querySelector('.desktop-navigation a')?.focus();
+  };
   if (['input','textarea','select'].includes(node.tag)) {
     if (props.type === 'submit') props.value = '入力内容を確認する';
     else if (props.value !== undefined) { props.defaultValue = props.value; delete props.value; }
@@ -97,8 +83,19 @@ function renderNode(node, key) {
     delete props['aria-invalid'];
   }
   if (node.tag === 'iframe') props.title = 'サロンへのアクセスマップ';
-  if (node.tag === 'video') props['aria-label'] = '陽の光と緑に包まれたプライベートサロン';
-  return createElement(node.tag, props, node.children.length ? node.children.map((child, i) => renderNode(child, i)) : undefined);
+  if (node.tag === 'a' && !node.children.some(child => typeof child === 'string' && child.trim()) && node.children.some(child => child.tag === 'img')) {
+    if (props.href?.includes('note.com')) props['aria-label'] = 'note';
+    if (props.href?.includes('ameblo.jp')) props['aria-label'] = 'アメブロ';
+  }
+  if (node.tag === 'video') {
+    props['aria-label'] = '陽の光と緑に包まれたプライベートサロン';
+    props.controls = true;
+    props.autoPlay = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    props.loop = true;
+    props.preload = 'metadata';
+    props.poster = localUrl('/assets/4f5754040abafabe.jpg');
+  }
+  return createElement(node.tag, props, node.children.length ? node.children.map((child, i) => renderNode(child, i, inHeading || /^h[1-6]$/.test(node.tag))) : undefined);
 }
 
 function App() {
@@ -118,6 +115,6 @@ function App() {
   }, []);
   if (loading) return <main className="page-loading" aria-busy="true">読み込み中…</main>;
   if (!content) return <main className="not-found"><h1>ページが見つかりません</h1><p>URLをご確認いただくか、トップページからお進みください。</p><a href={localUrl("/")}>トップページへ戻る</a></main>;
-  return <><style>{localCss(content.css)}</style>{content.nodes.map((node, index) => renderNode(node, index))}</>;
+  return <>{content.nodes.map((node, index) => renderNode(node, index))}</>;
 }
 createRoot(document.getElementById('root')).render(<App/>);

@@ -25,6 +25,7 @@ function fieldLabels(node) {
 export function LocalForm({ node, render }) {
   const [review, setReview] = useState(null);
   const heading = useRef(null);
+  const form = useRef(null);
   const labels = fieldLabels(node);
   const handleSubmit = event => {
     event.preventDefault();
@@ -34,14 +35,14 @@ export function LocalForm({ node, render }) {
   };
   return <div className="local-form-panel">
     <p className="preview-form-note">確認用フォームです。入力した内容は送信されません。</p>
-    <form className="local-contact-form" aria-label={node.attrs['aria-label'] || 'お問い合わせフォーム'} onSubmit={handleSubmit} hidden={review !== null}>
+    <form ref={form} className="local-contact-form" aria-label={node.attrs['aria-label'] || 'お問い合わせフォーム'} onSubmit={handleSubmit} hidden={review !== null}>
       {node.children.map((child, i) => render(child, i))}
     </form>
     {review && <section className="form-review" aria-label="入力内容の確認">
       <h3 ref={heading} tabIndex={-1}>入力内容の確認</h3>
       <dl>{review.map(([name, value]) => <React.Fragment key={name}><dt>{labels[name]}</dt><dd>{value || '未入力'}</dd></React.Fragment>)}</dl>
       <p role="status">入力内容を確認しました。送信は行っていません。</p>
-      <button className="local-action" type="button" onClick={() => setReview(null)}>入力内容を修正する</button>
+      <button className="local-action" type="button" onClick={() => { setReview(null); requestAnimationFrame(() => form.current?.querySelector('input:not([type="hidden"]), textarea, select')?.focus()); }}>入力内容を修正する</button>
     </section>}
   </div>;
 }
