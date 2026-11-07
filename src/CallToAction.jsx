@@ -1,7 +1,7 @@
 import React from 'react';
 import HeadingText from './HeadingText';
 import { localUrl } from './paths';
-import { bookingLabel, bookingPath, lineUrl } from './site-config';
+import { bookingLabel, bookingPath, formatPrice, lineUrl, sessionPricing } from './site-config';
 export function BookingLink({className='', children=bookingLabel}) {
   return <a className={`action-button booking-button ${className}`} href={localUrl(bookingPath)} aria-label={bookingLabel}><span className="button-label"><HeadingText>{children}</HeadingText></span><span aria-hidden="true">↗</span></a>;
 }
@@ -12,9 +12,13 @@ export function TextLink({href, children}) {
   return <a className="text-link" href={localUrl(href)}>{children}<span aria-hidden="true">→</span></a>;
 }
 export function PriceSummary({compact=false}) {
+  const { minutes, regular, line } = sessionPricing;
   return <div className={`price-summary ${compact?'is-compact':''}`} aria-label="プライベートコーチング相談の料金">
-    <p><span>75分</span><strong>6,000<span>円（税込）</span></strong></p>
-    <p className="line-price">公式LINEからのお申し込みは1,000円OFF <strong>5,000円（税込）</strong></p>
+    <p><span>{minutes}分</span><strong>{regular.toLocaleString('ja-JP')}<span>円（税込）</span></strong></p>
+    <a className="line-price-link" href={lineUrl} aria-label={`公式LINEで申し込む（${formatPrice(line)}）`}>
+      <span>公式LINEから<small>{(regular - line).toLocaleString('ja-JP')}円OFF</small></span>
+      <strong>{formatPrice(line)} <span aria-hidden="true">↗</span></strong>
+    </a>
   </div>;
 }
 export function ClosingInvitation() {

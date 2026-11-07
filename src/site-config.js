@@ -2,6 +2,16 @@ export const siteName = 'こころのプライベートサロン';
 export const bookingPath = '/trial-session-booking/';
 export const bookingLabel = 'プライベートコーチング相談を申し込む';
 export const lineUrl = 'https://line.me/R/ti/p/@615ytuyo';
+export const sessionPricing = { minutes: 75, regular: 6000, line: 5000 };
+export const maintenancePricing = { minutes: 120, regular: 8800 };
+export const formatPrice = amount => `${amount.toLocaleString('ja-JP')}円（税込）`;
+export const therapyInquiryPath = '/コーチング＆セラピー講座　お問い合わせ/';
+export const workshopInquiryPath = '/single-course-contact/';
+export const courseAnnouncementUrl = 'https://ameblo.jp/kosodate-oyasodati/entry-12983383581.html';
+export const inquiryTopics = {
+  'コーチング＆セラピー講座': { beginner: '初級コース', advanced: '中上級コース' },
+  '単発講座': { mama: 'コーチングママ知る講座', couples: 'コーチング仲良し夫婦講座' },
+};
 export const navigation = [
   ['ホーム', '/'],
   ['はじめての方へ', '/はじめての方へ/'],
@@ -22,6 +32,8 @@ export const pageTitles = {
   '/coaching-course-contact/': 'プライベートコーチング相談のお申し込み',
   '/伴走コース/': '継続コーチング伴走コース',
   '/すみいみゆきについて/': '主催者・すみいみゆきについて',
+  '/お客様の声/': 'お客様の声',
+  '/category/uncategorized/': 'お知らせの記事一覧',
   '/contact/': 'お問い合わせ・予約',
 };
 export const customPageTitles = {

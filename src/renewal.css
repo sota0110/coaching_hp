@@ -9,6 +9,9 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 .salon-header .desktop-navigation { display:flex; flex-wrap:wrap; justify-content:center; column-gap:28px; padding-block:6px; }
 .salon-header .desktop-navigation a { min-height:42px; font-size:13px; }
 .salon-header .mobile-menu nav a { font-size:16px; padding-block:15px; }
+.mobile-menu { overscroll-behavior:contain; }
+.mobile-menu .menu-close { position:sticky; top:0; z-index:1; background:var(--paper); }
+.menu-reservation { width:100%; margin-block:8px 12px; }
 .action-button { display:inline-flex; align-items:center; justify-content:center; gap:18px; min-height:56px; max-width:100%; padding:15px 24px; border:1px solid var(--green); border-radius:4px; background:var(--green); color:white; font:inherit; font-size:15px; font-weight:500; line-height:1.75; text-decoration:none; text-align:center; transition:background .2s; }
 .action-button > span[aria-hidden] { flex-shrink:0; }
 .action-button:hover { background:#244b3c; color:white; }
@@ -44,11 +47,27 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 .price-summary > p:first-child > span { font-size:19px; }
 .price-summary > p:first-child > strong { font-family:var(--serif); font-size:34px; font-weight:500; line-height:1.5; }
 .price-summary > p:first-child strong span { font-family:var(--sans); font-size:15px; margin-left:4px; }
-.price-summary .line-price { font-size:14px; color:#526a58; margin-top:8px; line-height:1.9; }
-.price-summary .line-price strong { display:block; font-size:20px; font-weight:500; color:var(--green); }
-.price-summary.is-compact { padding-block:14px; max-width:500px; }
+.price-summary .line-price-link {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  column-gap:10px;
+  min-height:48px;
+  margin-top:10px;
+  padding:8px 12px;
+  border:1px solid #c8dcca;
+  border-radius:4px;
+  background:#e8f4eb;
+  color:#285c39;
+  font-size:13px;
+  line-height:1.6;
+  text-decoration:none;
+}
+.price-summary .line-price-link:hover { background:#d8ebdc; color:#214d30; }
+.line-price-link small { display:block; font-size:12px; }
+.line-price-link strong { white-space:nowrap; font-size:16px; }
+.price-summary.is-compact { padding-block:12px; max-width:500px; }
 .price-summary.is-compact > p:first-child strong { font-size:28px; }
-.price-summary.is-compact .line-price strong { display:inline; margin-left:8px; font-size:16px; white-space:nowrap; }
 .renewal-section { width:min(var(--width),calc(100% - 80px)); margin:clamp(72px,8vw,112px) auto; }
 .concerns-section { max-width:980px; }
 .concern-list { display:grid; grid-template-columns:1fr 1fr; gap:0 40px; padding:0; margin:0 0 40px; list-style:none; }
@@ -123,8 +142,10 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 .private-session-page { max-width:1040px; }
 .private-session-page > section { max-width:880px; margin-inline:auto; }
 .session-opening { display:grid; grid-template-columns:1.1fr 1fr; gap:40px; align-items:start; padding-bottom:44px; border-bottom:1px solid var(--line); }
-.session-opening h2 { font-size:34px; }
-.session-opening .section-kicker { font-size:16px; }
+.session-intro { font-family:var(--serif); font-size:22px; }
+.session-intro p:last-child { margin-bottom:0; }
+.session-intro .section-kicker { font-size:16px; margin-bottom:12px; }
+.first-visit-page .editorial-intro .price-summary { margin-bottom:0; }
 .three-principles { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
 .three-principles article { padding:28px 24px; background:white; border:1px solid var(--line); }
 .three-principles article > span { font:32px/1.5 Georgia,serif; color:#87a383; display:block; margin-bottom:20px; }
@@ -135,17 +156,20 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 .service-facts dt { padding:22px; background:var(--soft); font-weight:500; }
 .service-facts dd { padding:22px; margin:0; }
 .booking-page { max-width:760px; margin-inline:auto; }
-.booking-introduction { margin-bottom:36px; }
-.booking-introduction h2 { font-size:28px; }
-.booking-introduction p { margin-bottom:18px; }
-.booking-introduction .price-summary { margin-top:24px; }
+.booking-introduction { margin-bottom:24px; }
+.booking-introduction p { margin-bottom:12px; }
+.booking-introduction .action-group { margin-top:18px; }
+.booking-rate { display:flex; flex-wrap:wrap; gap:4px 16px; margin:20px 0 0; font-size:14px; }
+.booking-rate a { color:#285c39; }
+.application-route .page-header { padding-block:clamp(24px,3vw,44px); }
+.application-route .breadcrumb { padding-block:12px; }
+.application-route .renewal-main { padding-top:clamp(22px,3vw,36px); }
 .application-panel, .application-receipt { padding:36px; border:1px solid var(--line); background:white; }
-.demo-notice, .demo-badge { padding:16px 18px; border-left:3px solid #8b9e78; background:#f1f5ea; color:#526249; font-size:14px; line-height:1.9; }
+.demo-notice { padding:16px 18px; border-left:3px solid #8b9e78; background:#f1f5ea; color:#526249; font-size:14px; line-height:1.9; }
 .demo-notice strong { display:block; }
-.demo-badge { font-weight:600; }
-.required-note { font-size:14px; }
+.booking-demo-notice { padding:10px 14px; margin-bottom:16px; }
+.booking-demo-notice strong { display:inline; margin-inline-end:8px; }
 .required-mark { display:inline-block; padding:1px 8px; margin-left:8px; background:#e4eee4; color:#3c6344; border-radius:3px; font-size:12px; font-weight:500; vertical-align:middle; white-space:nowrap; }
-.required-note .required-mark { margin:0 8px 0 0; }
 .form-field { margin:0 0 28px; }
 .form-field > label, .form-field legend { display:block; font-weight:500; margin-bottom:10px; font-size:16px; }
 .field-unit { font-size:13px; font-weight:400; color:var(--muted); margin-left:6px; }
@@ -155,6 +179,9 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 .application-form input[type=datetime-local]::-webkit-date-and-time-value { text-align:left; }
 .application-form input[type=datetime-local]::-webkit-datetime-edit { padding:0; }
 .field-help { margin:8px 0 0; }
+.field-error { margin:8px 0 0; font-size:14px; color:#803e2b; }
+.application-form [aria-invalid="true"] { border-color:#a64c39; }
+.receipt-next-title { font-size:18px; margin-bottom:12px; }
 .method-options { padding:0; border:0; min-width:0; }
 .method-options label { display:flex; align-items:center; gap:12px; min-height:52px; padding:10px 16px; margin-bottom:10px; border:1px solid var(--line); border-radius:4px; font-weight:400; }
 .application-form :is(input[type=radio],input[type=checkbox]) { accent-color:var(--green); width:20px; height:20px; flex:0 0 20px; }
@@ -162,7 +189,6 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 .form-consent input { margin-top:5px; }
 .application-form > .action-button { width:100%; }
 .application-form[hidden] { display:none; }
-.form-trap { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
 .application-review h2 { font-size:26px; }
 .application-review dl { margin:28px 0; }
 .application-review dl > div { padding-block:18px; border-bottom:1px solid var(--line); }
@@ -191,14 +217,25 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 .course-overview { margin-bottom:48px; }
 .course-price-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
 .course-price-grid > div { padding:28px; border:1px solid var(--line); background:white; }
-.course-price-grid h2 { font-size:24px; margin:0 0 12px; }
+.course-price-grid h3 { font-size:24px; margin:0 0 12px; }
 .course-price-grid p { margin:0 0 12px; font-size:15px; }
 .course-price-grid strong { font-family:var(--serif); font-size:30px; font-weight:500; color:var(--green); }
 .course-price-grid small { font-family:var(--sans); font-size:14px; }
 .course-overview > .small-note { margin-top:18px; }
 .course-availability { padding:24px 28px; background:var(--soft); border:1px solid var(--line); margin-bottom:44px; }
-.course-availability p { font-size:15px; margin-bottom:12px; }
-.course-availability a { font-size:15px; }
+.course-availability h2 { font-size:24px; margin-bottom:12px; }
+.course-availability p { font-size:16px; margin-bottom:12px; }
+.course-availability .action-group { margin-top:16px; }
+.course-schedule-links { display:flex; flex-wrap:wrap; gap:0 24px; }
+.maintenance-quick-info { margin-top:24px; padding-top:18px; border-top:1px solid var(--line); color:var(--green); text-align:left; }
+.renewal-site .entry-body .maintenance-quick-info p { margin:0 0 6px; font-size:18px; }
+.workshop-links { max-width:960px; margin:0 auto 32px; }
+.station-map { margin-top:28px; }
+.station-map iframe { display:block; width:100%; border:1px solid var(--line); border-radius:4px; }
+.station-map figcaption { margin-top:10px; color:var(--muted); font-size:14px; }
+.past-news, .renewal-main > .post-list { max-width:880px; margin-inline:auto; }
+.past-news { margin-top:56px; }
+.launch-news > .text-link { margin-top:24px; }
 .renewal-site .entry-body { max-width:960px; }
 .renewal-site .entry-body :is(p,li,dd) { font-size:16px; line-height:1.95; }
 .renewal-site .entry-body .gh-note { font-size:14px; }
@@ -206,6 +243,7 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 .renewal-site .entry-body .gh-eyebrow { font-size:14px; }
 .renewal-site .entry-body .action-button { font-size:15px; }
 .renewal-site .entry-body .gh-details-row dd br { display:initial; }
+.renewal-site .entry-body :is(.gh-hero-copy,.gh-hero-text,.gh-cta-copy,.gh-bottom-message > p) { text-align:left; }
 .renewal-site .entry-body .gh-hero-copy { font-family:var(--sans); font-size:17px; }
 .renewal-site .entry-body .gh-hero-copy p { font-size:17px; }
 .renewal-site .vk_post_excerpt { font-size:16px; }
@@ -238,31 +276,35 @@ body.renewal-site { font-size:16px; line-height:1.95; }
   .footer-grid { gap:32px; }
 }
 @media (max-width:700px) {
-  body.renewal-site { font-size:16px; padding-bottom:calc(84px + env(safe-area-inset-bottom)); }
+  html:has(.mobile-booking-bar) { scroll-padding-bottom:calc(72px + env(safe-area-inset-bottom)); }
+  body.renewal-site { font-size:16px; padding-bottom:calc(72px + env(safe-area-inset-bottom)); }
   body.no-sticky-reservation { padding-bottom:0; }
-  .salon-header .header-main { min-height:86px; }
+  .salon-header .header-main { min-height:76px; padding-block:12px; }
   .salon-header .brand-title { font-size:18px; }
   .salon-header .brand-subtitle { font-size:10px; max-width:none; }
   .salon-header .brand-mark { width:28px; flex-basis:28px; }
   .mobile-menu-inner { padding:16px 22px 28px; }
-  .page-header { padding:36px 0; }
-  .page-header-title { font-size:26px; }
-  .breadcrumb { font-size:12px; }
-  .renewal-main { padding-block:40px 56px; }
-  .welcome-hero { width:calc(100% - 40px); margin-top:28px; grid-template-columns:1fr; gap:28px; }
+  .page-header { padding:24px 0; }
+  .page-header-title { font-size:26px; line-height:1.5; }
+  .application-route .page-header { padding-block:16px; }
+  .application-route .page-header-title { font-size:24px; }
+  .application-route .breadcrumb { padding-block:8px; }
+  .application-route .renewal-main { padding-top:16px; }
+  .breadcrumb { padding-block:10px; font-size:12px; }
+  .renewal-main { padding-block:32px 56px; }
+  .welcome-hero { width:calc(100% - 40px); margin-top:20px; grid-template-columns:1fr; gap:20px; }
   .welcome-copy { padding:0; }
-  .welcome-copy h1 { font-size:clamp(25px,6.8vw,33px); margin-bottom:18px; letter-spacing:.01em; line-height:1.7; }
-  .welcome-copy .section-kicker { font-size:13px; margin-bottom:16px; }
-  .welcome-message { font-size:19px; margin-bottom:16px; }
-  .location-note { font-size:13px; margin-bottom:18px; }
+  .welcome-copy h1 { font-size:clamp(25px,6.8vw,33px); margin-bottom:12px; letter-spacing:.01em; line-height:1.55; }
+  .welcome-copy .section-kicker { font-size:13px; line-height:1.55; margin-bottom:12px; }
+  .welcome-message { font-size:clamp(17px,4.9vw,19px); line-height:1.7; margin-bottom:10px; }
+  .location-note { font-size:13px; margin-bottom:12px; }
   .welcome-copy > .action-button { width:100%; padding-inline:12px; font-size:14px; }
   .welcome-photo { padding-bottom:24px; }
   .welcome-photo img { height:auto; min-height:0; aspect-ratio:1.3; object-position:50% 42%; border-radius:80px 4px 4px 4px; }
   .welcome-photo figcaption { font-size:12px; }
-  .price-summary.is-compact { margin-bottom:20px; }
-  .price-summary.is-compact > p:first-child strong { font-size:28px; }
-  .price-summary.is-compact .line-price { font-size:13px; }
-  .price-summary.is-compact .line-price strong { margin-left:0; display:block; }
+  .price-summary.is-compact { margin-bottom:16px; }
+  .price-summary .line-price-link { padding-inline:9px; }
+  .line-price-link strong { font-size:14px; }
   .renewal-section { width:calc(100% - 40px); margin-block:64px; }
   .section-heading { text-align:left; margin-bottom:28px; }
   .section-heading h2 { font-size:26px; }
@@ -277,7 +319,6 @@ body.renewal-site { font-size:16px; line-height:1.95; }
   .private-highlight { padding:28px 22px; }
   .private-highlight-grid { grid-template-columns:1fr; gap:24px; }
   .session-summary { padding:24px 20px; }
-  .session-summary .price-summary .line-price { font-size:13px; }
   .session-summary .price-summary p:first-child strong { font-size:30px; }
   .onward-section { grid-template-columns:1fr; gap:40px; }
   .onward-section h2 { font-size:26px; }
@@ -309,13 +350,14 @@ body.renewal-site { font-size:16px; line-height:1.95; }
   .service-facts dt { padding:12px 18px; font-size:14px; }
   .service-facts dd { padding:18px; }
   .gentle-callout { padding:28px 22px; }
-  .session-opening { gap:24px; padding-bottom:28px; }
-  .session-opening h2 { font-size:28px; }
+  .session-opening { gap:18px; padding-bottom:28px; }
+  .session-intro { font-size:19px; }
   .three-principles { gap:16px; }
-  .booking-introduction h2 { font-size:26px; }
-  .application-panel, .application-receipt { padding:24px 18px; }
+  .booking-introduction { margin-bottom:16px; font-size:15px; line-height:1.8; }
+  .application-panel, .application-receipt { padding:16px; }
   .application-review h2, .application-receipt h2 { font-size:25px; }
   .demo-notice { padding:14px; }
+  .booking-demo-notice { padding:8px 12px; margin-bottom:12px; font-size:13px; }
   .reply-preview { padding:20px; }
   .form-field > label, .form-field legend { font-size:15px; }
   .form-field .required-mark { margin-left:4px; }
@@ -326,11 +368,12 @@ body.renewal-site { font-size:16px; line-height:1.95; }
   .testimonial-body { margin-left:0; padding:20px; }
   .course-price-grid { grid-template-columns:1fr; gap:12px; }
   .course-price-grid > div { display:grid; grid-template-columns:1fr 1fr; gap:4px 16px; padding:22px; }
-  .course-price-grid h2 { font-size:22px; margin:0; }
+  .course-price-grid h3 { font-size:22px; margin:0; }
   .course-price-grid p { grid-column:1; font-size:14px; margin:0; }
   .course-price-grid strong { grid-column:2; grid-row:1 / span 2; align-self:center; font-size:27px; }
   .course-price-grid small { display:block; font-size:13px; }
-  .course-availability { padding:22px; }
+  .course-availability { padding:20px; margin-bottom:32px; }
+  .station-map iframe { height:300px; }
   .renewal-site .entry-body .gh-hero-title { font-size:28px; }
   .renewal-site .entry-body .gh-card-title { font-size:23px; }
   .footer-grid { grid-template-columns:1fr; gap:28px; }
@@ -340,15 +383,16 @@ body.renewal-site { font-size:16px; line-height:1.95; }
   .footer-utility nav { display:grid; grid-template-columns:1fr; gap:0; }
   .footer-utility a { font-size:14px; }
   .site-demo-label { font-size:13px; }
-  .mobile-booking-bar { display:block; position:fixed; bottom:0; left:0; right:0; z-index:30; padding:8px 16px calc(8px + env(safe-area-inset-bottom)); background:#fafbf8f5; border-top:1px solid var(--line); backdrop-filter:blur(8px); }
+  .mobile-booking-bar { display:block; position:fixed; bottom:0; left:0; right:0; z-index:30; padding:6px 16px calc(6px + env(safe-area-inset-bottom)); background:#fafbf8f5; border-top:1px solid var(--line); backdrop-filter:blur(8px); }
+  .mobile-booking-bar.inline-booking-visible:not(:focus-within) { display:none; }
   .mobile-booking-bar .action-button { min-height:52px; padding:12px; font-size:14px; }
 }
 @media (prefers-reduced-motion:reduce) { .action-button {transition:none;} }
 .nav-row-break { flex-basis:100%; height:0; }
 @media (min-width:1001px) {
   .salon-header .header-main { min-height:88px; padding-block:14px; }
-  .salon-header .desktop-navigation { padding-block:4px; column-gap:32px; }
-  .salon-header .desktop-navigation a { min-height:38px; }
+  .salon-header .desktop-navigation { padding-block:4px; column-gap:32px; row-gap:0; }
+  .salon-header .desktop-navigation a { min-height:44px; }
   .welcome-hero { margin-top:24px; }
   .welcome-copy { padding-block:8px; }
   .welcome-copy .section-kicker { margin-bottom:14px; font-size:13px; }
@@ -357,6 +401,10 @@ body.renewal-site { font-size:16px; line-height:1.95; }
   .welcome-message { font-size:20px; line-height:1.85; margin-bottom:16px; }
   .location-note { margin-bottom:18px; }
   .welcome-photo img { min-height:560px; max-height:590px; }
+}
+@media (min-width:1240px) {
+  .salon-header .desktop-navigation { justify-content:space-between; column-gap:10px; }
+  .salon-header .nav-row-break { display:none; }
 }
 .publication-article { margin-bottom:40px; }
 .publication-article > p { max-width:760px; }
@@ -371,7 +419,11 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 @media (max-width:700px) { .profile-opening { grid-template-columns:1fr; gap:24px; }.profile-opening h2 {font-size:26px;}.profile-opening figure {grid-row:1;} }
 .archive-links { display:flex; flex-wrap:wrap; gap:16px 32px; margin-top:32px; font-size:15px; }
 @media (max-width:360px) {
-  .salon-header .brand-title {font-size:16px;}
+  .salon-header .header-main { margin-inline:16px; gap:10px; }
+  .salon-header .brand-mark { width:22px; flex-basis:22px; }
+  .salon-header .salon-brand { gap:8px; }
+  .salon-header .brand-title { font-size:15px; }
+  .salon-header .menu-toggle { width:44px; flex-basis:44px; }
   .mobile-booking-bar {padding-inline:10px;}
   .mobile-booking-bar .booking-button {font-size:13px; gap:10px; padding-inline:8px;}
 }
@@ -383,11 +435,21 @@ body.renewal-site { font-size:16px; line-height:1.95; }
   .footer-utility a {font-size:13px;}
 }
 .button-label {min-width:0;text-wrap:balance;}
-@media (max-width:700px) {
-  .session-opening {display:flex;flex-direction:column;gap:0;}
-  .session-opening > div {display:contents;}
-  .session-opening > div > .section-kicker {order:0;}
-  .session-opening > div > h2 {order:1;}
-  .session-opening > .session-summary {order:2;width:100%;}
-  .session-opening > div > p:not(.section-kicker) {order:3;margin:24px 0 0;}
+@media (max-width:700px) and (max-height:430px) {
+  html:has(.mobile-booking-bar) { scroll-padding-bottom:0; }
+  body.renewal-site { padding-bottom:0; }
+  .mobile-booking-bar { display:none; }
+}
+@media (min-width:550px) and (max-width:900px) and (max-height:430px) and (orientation:landscape) {
+  .salon-header .header-main { min-height:60px; padding-block:6px; }
+  .welcome-hero { grid-template-columns:minmax(0,1.45fr) minmax(0,1fr); align-items:start; gap:20px; margin-top:12px; }
+  .welcome-copy { padding:0; }
+  .welcome-copy .section-kicker { margin-bottom:6px; }
+  .welcome-copy .section-kicker br, .welcome-message br { display:none; }
+  .welcome-copy h1 { font-size:25px; line-height:1.45; margin-bottom:8px; }
+  .welcome-message { font-size:16px; line-height:1.65; margin-bottom:6px; }
+  .welcome-copy .location-note { margin-bottom:8px; }
+  .welcome-copy .price-summary { margin-bottom:10px; padding-block:6px; }
+  .welcome-copy .line-price-link { margin-top:4px; }
+  .welcome-photo img { height:100%; min-height:0; max-height:300px; border-radius:60px 4px 4px 4px; }
 }

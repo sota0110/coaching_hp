@@ -1,6 +1,6 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
-import { extraPages, pageTitles, customPageTitles, siteName } from '../src/site-config.js';
+import { extraPages, pageTitles, customPageTitles, siteName, formatPrice, sessionPricing } from '../src/site-config.js';
 const root = resolve(import.meta.dirname, '..');
 const pages = {...JSON.parse(await readFile(join(root, 'src/pages.json'), 'utf8')), ...extraPages};
 const html = await readFile(join(root, 'dist/index.html'), 'utf8');
@@ -10,7 +10,7 @@ for (const [path, page] of Object.entries(pages)) {
   const directory = join(root, 'dist', path);
   await mkdir(directory, { recursive: true });
   const title = path === '/' ? `${siteName}｜渋谷区代々木・対面とオンライン` : `${customPageTitles[path] || pageTitles[path] || page.title.split(' | ')[0]} | ${siteName}`;
-  const description = page.description || (path === '/' ? 'こころを整えることを、もっと日常に。渋谷区代々木のママと女性のためのプライベートサロン。75分6,000円（税込）、対面・オンライン対応。' : `${customPageTitles[path] || pageTitles[path] || page.title.split(' | ')[0]}のご案内。渋谷区代々木のこころのプライベートサロン。`);
+  const description = page.description || (path === '/' ? `こころを整えることを、もっと日常に。渋谷区代々木のママと女性のためのプライベートサロン。${sessionPricing.minutes}分・${formatPrice(sessionPricing.regular)}、対面・オンライン対応。` : `${customPageTitles[path] || pageTitles[path] || page.title.split(' | ')[0]}のご案内。渋谷区代々木のこころのプライベートサロン。`);
   const canonicalPath = path === '/coaching-course-contact/' ? '/trial-session-booking/' : path;
   const canonical = new URL(canonicalPath.replace(/^\//,''),siteUrl).href;
   const metadata = `<link rel="canonical" href="${escape(canonical)}"/><meta property="og:type" content="website"/><meta property="og:title" content="${escape(title)}"/><meta property="og:description" content="${escape(description)}"/><meta property="og:url" content="${escape(canonical)}"/><meta property="og:image" content="${new URL('assets/f94f09ff897e4217.jpg',siteUrl).href}"/>`;

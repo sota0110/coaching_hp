@@ -48,7 +48,7 @@ pnpm test
 
 - `BASE_PATH=/ pnpm build` でルート配信向けにビルドできます。`SITE_URL=https://本番ドメイン/` でcanonical・OGPのURLを設定してください。
 - `src/booking-api.js` の `submitApplication` を実際の受付APIへの送信処理へ置き換え、入力値をサーバー側でも検証してください。
-- 入力データは `name`, `email`, `service`, `firstPreference`, `secondPreference`, `method`, `message`, `timeZone`, `kind`。日時文字列は日本時間、`timeZone` は `Asia/Tokyo` です。
+- 入力データは `name`, `email`, `service`, `firstPreference`, `secondPreference`, `method`, `message`, `timeZone`, `kind`。講座のお問い合わせでは任意の `course` も含めます。日時文字列は日本時間、`timeZone` は `Asia/Tokyo` です。
 - 申し込み通知・自動返信・申し込み内容の保管と主催者向け確認画面は、現在未接続です。実装後に実際の通知・返信・保管を検証してください。
 - 送信完了は受付APIで受理された後に表示し、予約は日程を双方で合意して確定する方式にします。
 - 本番の連絡先、保管先・保存期間・削除方法・外部サービスへの委託を確定し、プライバシーポリシーとデモ表示を更新してください。
