@@ -132,6 +132,11 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 .numbered-flow li::before { content:counter(steps,decimal-leading-zero); position:absolute; left:0; top:24px; font:30px/1.5 Georgia,serif; color:#77977a; }
 .numbered-flow li h3 { font-size:22px; margin-bottom:12px; }
 .numbered-flow li p { margin:0; }
+.numbered-flow.session-flow li { padding-inline-start:0; }
+.session-flow li::before { content:none; }
+.session-flow li p + p { margin-top:12px; }
+.session-step { display:block; margin-bottom:6px; color:var(--accent); font:500 13px/1.5 var(--sans); letter-spacing:.06em; }
+.maintenance-facts { margin:0; }
 .subtle-note { padding:16px 20px; border-left:2px solid #88aa8a; background:var(--soft); font-size:15px; }
 .comparison-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
 .comparison-grid article { padding:28px; background:var(--soft); }
