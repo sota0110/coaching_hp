@@ -1,4 +1,5 @@
 import React, { createElement, useEffect, useLayoutEffect, useState } from 'react';
+import SalonPhoto from './SalonPhoto';
 import { createRoot } from 'react-dom/client';
 import pageManifest from './page-manifest.json';
 const pageLoaders = import.meta.glob('./pages/*.json', { import: 'default' });
@@ -164,6 +165,9 @@ function renderNode(node, key, inHeading = false) {
     props.poster = localUrl('/assets/4f5754040abafabe.jpg');
   }
   const children = node.children.map((child, i) => renderNode(child, i, inHeading || /^h[1-6]$/.test(node.tag)));
+  if (route === '/コーチング＆セラピー講座/' && node.attrs.class === 'gh-hero') {
+    children.push(<SalonPhoto key="workshop-photo" scene="small-group-workshop" className="course-scene"/>);
+  }
   if (route === '/コーチング＆セラピー講座/' && node.tag === 'article' && node.attrs.class?.startsWith('gh-course-card')) {
     const course = node.attrs.class.includes('is-primary') ? 'beginner' : 'advanced';
     const label = inquiryTopics['コーチング＆セラピー講座'][course];

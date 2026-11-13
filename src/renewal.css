@@ -137,6 +137,19 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 .session-flow li p + p { margin-top:12px; }
 .session-step { display:block; margin-bottom:6px; color:var(--accent); font:500 13px/1.5 var(--sans); letter-spacing:.06em; }
 .maintenance-facts { margin:0; }
+.salon-scene { margin:0 0 28px; }
+.salon-scene img { display:block; width:100%; height:auto; border-radius:6px; }
+.onward-section .salon-scene { width:100%; }
+.onward-section .salon-scene img { aspect-ratio:4/3; object-fit:cover; object-position:center 35%; }
+.session-description::after { content:''; display:block; clear:both; }
+.session-description-photo { float:right; width:42%; margin:8px 0 24px 36px; }
+.massage-photo { max-width:500px; margin:0 auto 32px; }
+.welcome-gathering { max-width:520px; margin:36px auto 56px; }
+.course-scene { max-width:640px; margin:36px auto 0; }
+@media (max-width:700px) {
+  .session-description-photo { float:none; width:100%; max-width:500px; margin:0 auto 28px; }
+  .welcome-gathering { margin-block:28px 40px; }
+}
 .subtle-note { padding:16px 20px; border-left:2px solid #88aa8a; background:var(--soft); font-size:15px; }
 .comparison-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
 .comparison-grid article { padding:28px; background:var(--soft); }

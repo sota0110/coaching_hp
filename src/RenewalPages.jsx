@@ -1,4 +1,5 @@
 import React from 'react';
+import SalonPhoto from './SalonPhoto';
 import BookingForm, { DemoNotice } from './BookingForm';
 import { localUrl } from './paths';
 import { courseAnnouncementUrl, faqs, formatPrice, inquiryTopics, lineUrl, maintenancePricing, sessionPricing, therapyInquiryPath, workshopInquiryPath } from './site-config';
@@ -12,6 +13,7 @@ export function FirstVisitPage() {
       <p>「何を話したらよいかわからない」「相談するほどのことなのかな」。そんな気持ちのままでも、お越しいただけます。</p>
       <PriceSummary compact/>
     </header>
+    <SalonPhoto scene="warm-gathering" className="welcome-gathering"/>
     <section>
       <h2>どんな方が利用できますか？</h2>
       <p>子育て中のママから、子育てが一段落した女性、家族や親との関係、自分自身のこれからを考える女性まで。少し立ち止まって気持ちを整理したいときにもご利用いただけます。</p>
@@ -54,8 +56,9 @@ export function PrivateSessionPage() {
         <BookingLink/>
       </div>
     </header>
-    <section>
+    <section className="session-description">
       <h2>はじめての方も安心してご利用いただける、マンツーマンのプライベート相談です。</h2>
+      <SalonPhoto scene="private-dialogue" className="session-description-photo"/>
       <p>子育てのこと、家族や人間関係のこと、自分自身のこと。</p>
       <p>日々の暮らしの中で感じている悩みやモヤモヤを、安心できる空間でじっくりお話ししてみませんか？</p>
       <p>15年以上にわたる子育て支援の経験と、心理学・コーチング・セラピーの学びを生かし、今の気持ちや考えを一緒に整理していきます。</p>
@@ -95,6 +98,7 @@ export function PrivateSessionPage() {
     </section>
     <section>
       <h2>対面でのご相談</h2>
+      <SalonPhoto scene="hand-massage" className="massage-photo"/>
       <dl className="service-facts">
         <div><dt>対面</dt><dd>渋谷区代々木のプライベートサロンで行います。詳しい住所は予約確定後に個別にご案内します。<br/><TextLink href="/アクセス/">最寄り駅とアクセスを見る</TextLink></dd></div>
         <div><dt>ハンドマッサージ</dt><dd>対面でご希望の方にのみ、心と身体をゆるめるハンドマッサージを行います。料金は相談料に含まれます。お話だけのご相談もできます。</dd></div>
