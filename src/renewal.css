@@ -277,6 +277,15 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 .footer-utility a { font-size:13px; }
 .footer-utility small { font-size:12px; }
 .site-demo-label { margin-top:20px; margin-bottom:0; font-size:12px; color:#ceddca; }
+.footer-social-links { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:24px; }
+.salon-footer .footer-social-links a { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:76px; padding:14px 18px; border:1px solid #ffffff50; border-radius:4px; }
+.footer-social-links strong { display:block; font-size:15px; font-weight:500; }
+.footer-social-links small { display:block; font-size:12px; overflow-wrap:anywhere; color:#ceddca; }
+.salon-footer .footer-social-links a:hover { background:#ffffff0d; }
+@media (max-width:700px) {
+  .footer-social-links { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .salon-footer .footer-social-links a { padding:12px; }
+}
 .mobile-booking-bar { display:none; }
 @media (max-width:1000px) {
   .salon-header .desktop-navigation, .salon-header .header-reservation { display:none; }

@@ -2,6 +2,12 @@ export const siteName = 'こころのプライベートサロン';
 export const bookingPath = '/trial-session-booking/';
 export const bookingLabel = 'プライベートコーチング相談を申し込む';
 export const lineUrl = 'https://line.me/R/ti/p/@615ytuyo';
+export const socialLinks = [
+  { label: 'Instagram', account: '@miyuki_sumii', href: 'https://www.instagram.com/miyuki_sumii/' },
+  { label: '公式LINE', account: '@615ytuyo', href: lineUrl },
+  { label: 'note', account: 'familyshiftcoach', href: 'https://note.com/familyshiftcoach' },
+  { label: 'アメブロ', account: 'kosodate-oyasodati', href: 'https://ameblo.jp/kosodate-oyasodati/' },
+];
 export const sessionPricing = { minutes: 75, regular: 6000, line: 5000 };
 export const maintenancePricing = { minutes: 120, regular: 8800 };
 export const formatPrice = amount => `${amount.toLocaleString('ja-JP')}円（税込）`;
