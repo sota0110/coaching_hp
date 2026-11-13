@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SalonPhoto from './SalonPhoto';
 import BookingForm, { DemoNotice } from './BookingForm';
 import { localUrl } from './paths';
@@ -157,7 +157,10 @@ const inquiryServices = {
 
 export function InquiryPage({route}) {
   const service = inquiryServices[route];
-  const courseKey = new URLSearchParams(window.location.search).get('course');
+  const [courseKey, setCourseKey] = useState(null);
+  useEffect(() => {
+    setCourseKey(new URLSearchParams(window.location.search).get('course'));
+  }, []);
   const courses = inquiryTopics[service] ?? {};
   const initialCourse = Object.hasOwn(courses, courseKey) ? courses[courseKey] : '';
   return <div className="booking-page">
@@ -168,7 +171,7 @@ export function InquiryPage({route}) {
       </>}
     </div>
     <DemoNotice/>
-    <BookingForm inquiry service={service || 'その他のお問い合わせ'} initialCourse={initialCourse}/>
+    <BookingForm key={initialCourse} inquiry service={service || 'その他のお問い合わせ'} initialCourse={initialCourse}/>
     {service && <div className="center-link"><LineLink/></div>}
   </div>;
 }

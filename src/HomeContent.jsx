@@ -12,7 +12,7 @@ export default function HomeContent() {
         <p className="location-note">渋谷区・代々木｜対面・オンライン対応</p>
         <PriceSummary compact/><BookingLink/>
       </div>
-      <figure className="welcome-photo"><img src={localUrl('/assets/home-salon-clear-table.jpg')} width="1086" height="1448" alt="自然光が入る代々木のサロンでお話を伺うすみいみゆき" fetchPriority="high"/><figcaption>渋谷区代々木のプライベートサロン</figcaption></figure>
+      <figure className="welcome-photo"><img src={localUrl('/assets/home-salon-fast.jpg')} srcSet={`${localUrl('/assets/home-salon-mobile.jpg')} 480w, ${localUrl('/assets/home-salon-fast.jpg')} 900w`} sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1000px) 45vw, 540px" width="900" height="1200" alt="自然光が入る代々木のサロンでお話を伺うすみいみゆき" fetchPriority="high"/><figcaption>渋谷区代々木のプライベートサロン</figcaption></figure>
     </section>
     <section className="renewal-section concerns-section" aria-labelledby="concerns-title"><div className="section-heading"><p className="section-kicker">こんなお悩みありませんか？</p><h2 id="concerns-title">毎日頑張っているあなたへ</h2></div>
       <ul className="concern-list">{['子どもに優しくしたいのに、ついイライラしてしまう。','家族を優先して、自分のことはいつも後回し。','心配や不安で、気持ちが落ち着かない。','誰かに話を聴いてほしいけれど、なかなか話せない。','子育てが一段落して、これからの自分の人生を考えたい。','もっと自分らしく、毎日を楽しみたい。'].map(text=><li key={text}>{text}</li>)}</ul>

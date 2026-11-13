@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { localUrl } from './paths';
 import { LineLink } from './CallToAction';
 import { autoReplyMessage, bookingTimeZone, preferenceError, submitApplication, tokyoDateTime } from './booking-api';
@@ -44,7 +44,12 @@ export default function BookingForm({ inquiry = false, service = 'プライベ�
   const [selectedService, setSelectedService] = useState(service);
   const form = useRef(null);
   const heading = useRef(null);
-  const earliest = tokyoDateTime();
+  const [earliest, setEarliest] = useState('');
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    setEarliest(tokyoDateTime());
+    setReady(true);
+  }, []);
   const courses = Object.values(inquiryTopics[selectedService] ?? {});
 
   const focusHeading = () => requestAnimationFrame(() => heading.current?.focus());
@@ -193,7 +198,7 @@ export default function BookingForm({ inquiry = false, service = 'プライベ�
         <input type="checkbox" name="consent" required/>
         <span><a href={localUrl('/プライバシーポリシー/')} target="_blank" rel="noopener">プライバシーポリシー（仮設定・別タブ）</a>を確認しました。<span className="required-mark">必須</span></span>
       </label>
-      <button className="action-button" type="submit">入力内容を確認する<span aria-hidden="true">→</span></button>
+      <button className="action-button" type="submit" disabled={!ready}>入力内容を確認する<span aria-hidden="true">→</span></button>
     </form>
     {review && <section className="application-review" aria-labelledby="review-title">
       <h2 id="review-title" ref={heading} tabIndex={-1}>入力内容の確認</h2>
