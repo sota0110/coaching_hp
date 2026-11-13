@@ -13,7 +13,7 @@ for (const [path, page] of Object.entries(pages)) {
   const description = page.description || (path === '/' ? `こころを整えることを、もっと日常に。渋谷区代々木のママと女性のためのプライベートサロン。${sessionPricing.minutes}分・${formatPrice(sessionPricing.regular)}、対面・オンライン対応。` : `${customPageTitles[path] || pageTitles[path] || page.title.split(' | ')[0]}のご案内。渋谷区代々木のこころのプライベートサロン。`);
   const canonicalPath = path === '/coaching-course-contact/' ? '/trial-session-booking/' : path;
   const canonical = new URL(canonicalPath.replace(/^\//,''),siteUrl).href;
-  const metadata = `<link rel="canonical" href="${escape(canonical)}"/><meta property="og:type" content="website"/><meta property="og:title" content="${escape(title)}"/><meta property="og:description" content="${escape(description)}"/><meta property="og:url" content="${escape(canonical)}"/><meta property="og:image" content="${new URL('assets/home-salon-without-book.jpg',siteUrl).href}"/>`;
+  const metadata = `<link rel="canonical" href="${escape(canonical)}"/><meta property="og:type" content="website"/><meta property="og:title" content="${escape(title)}"/><meta property="og:description" content="${escape(description)}"/><meta property="og:url" content="${escape(canonical)}"/><meta property="og:image" content="${new URL('assets/home-salon-clear-table.jpg',siteUrl).href}"/>`;
   const output = html.replace(/<title>.*?<\/title>/, `<title>${escape(title)}</title>`).replace(/<meta name="description" content="[^"]*"\s*\/?>/, `<meta name="description" content="${escape(description)}"/>`).replace('</head>',`${metadata}</head>`);
   await writeFile(join(directory, 'index.html'), output);
 }
