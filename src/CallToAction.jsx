@@ -23,7 +23,7 @@ export function PriceSummary({compact=false}) {
 }
 export function ClosingInvitation() {
   return <section className="closing-invitation" aria-labelledby="closing-title"><div className="reading-width">
-    <h2 id="closing-title">あなた自身を大切にする時間を、<br/>始めてみませんか？</h2>
+    <h2 id="closing-title"><span className="heading-phrase">あなた自身を</span><span className="heading-phrase">大切にする時間を、</span><br/>始めてみませんか？</h2>
     <p>大きな悩みでなくても大丈夫。</p><p>「少し話を聴いてほしい」<br/>「自分の気持ちを整理したい」</p>
     <p>そんな小さなきっかけを大切にしています。</p><p>あなたが自分らしく、笑顔で過ごせるように。<br/>まずは、お気軽にご相談ください。</p>
     <div className="action-group"><BookingLink/><LineLink/></div>
