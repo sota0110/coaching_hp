@@ -6,44 +6,34 @@
 - 本番ブランチは `main`。ビルドは有効、プレビュービルドは無効。
 - ビルド: `pnpm test && pnpm build:production`。
 - デプロイ: `pnpm db:migrate:remote && pnpm exec wrangler deploy`。
-- ビルド環境にNode.js 24、公開Turnstile site key、workers.devの `SITE_URL` を設定。
+- ビルド環境にNode.js 24、公開Turnstile site key、`SITE_URL=https://coaching-therapy.jp/` を設定。
 - 既存のWorker SecretsとD1を継続使用する。
 - GitHub Pagesは公開停止済み。旧ワークフローを削除し、GitHub Actionsはテスト・通常ビルドのみ実施。
 - トップ画像もGit管理し、自動公開の対象に含めた。
 
 ## 現在の本番受付と独自ドメイン接続
 
-### 独自ドメイン接続の進捗（2026年11月14日）
-
-- ユーザーの希望により、HPも `coaching-therapy.jp` へ切り替える方針。
-- CloudflareにFreeプランのゾーンを追加済み。ユーザーはネームサーバー変更を保存済みと報告。Cloudflare側は反映待ち。
-- 指定ネームサーバー: `erin.ns.cloudflare.com` / `major.ns.cloudflare.com`。
-- 現在の権威DNSは `ns1.xserver.jp` ～ `ns5.xserver.jp`。親側DSは未検出。
-- Cloudflare側には既存A（apex・www・wildcard）、MX、SPF、既存DKIM、Resend DKIMと2つのCNAME、計9レコードを準備した。現時点はすべてDNS onlyで旧配信先を維持。
-- Resend DKIMはエックスサーバー側で全文に修正され、公開DNSとResendの全文一致を確認済み。Cloudflare側の準備レコードにも全文を登録済み。
-- ResendのVerified / Forge Readyを確認済み。Workerの `MAIL_FROM` を `noreply@coaching-therapy.jp` へ変更・デプロイ済み。
-- 認証後の問い合わせテスト1件でD1保存、通知・自動返信の送信成功、Gmail受信トレイへの両メール到着を確認済み。
-- ユーザーはドメインのメールを使っておらず、Gmailのみと回答。旧MX等はこの時点では保存してある。
-- ネームサーバー切り替え後、ゾーンActiveを確認し、WorkerのCustom Domain、canonical、受付の許可Originを本番ドメインへ設定する。wwwも新サイトへ向くよう扱いを揃える。
-- 受付テスト制限は解除済み。現在のworkers.dev URLで一般の申し込み・問い合わせを本番受付できる。既存HPの置換を実行する際は、ユーザーによる旧HPへの影響の懸念を踏まえ、公開方針を確定する。
-
-独自ドメインはDNS反映待ちで、新HPへの差し替えは未実行。 https://coaching-therapy.coaching-therapy-react.workers.dev/ で確認する。
-Workerの `TEST_RECIPIENT` とローカルの `VITE_ACCEPTANCE_MODE=test` を削除し、本番ビルド・デプロイ済み。
-Resendの送信元は認証済みの `noreply@coaching-therapy.jp`。一般の申込者の受付が可能。
-本番受付の実機テストでは、従来の限定アドレスとは異なるGmailのプラスアドレスを使い、D1保存・通知・自動返信と、両メールの受信トレイへの到着を確認した。
-24ページの出力HTMLにテスト案内がないこと、フォームに本番送信ボタン・完了画面が表示されることも確認済み。
-最新のVersion ID: `e4ae9b63-c09a-4152-84c1-ed2f6c42ec94`。
-運営者通知の全項目掲載に変更後、15件の自動テストと本番送信を確認。
-Gmailで通知本文を読み、氏名・メール・希望日時2件（日本時間）・相談方法・複数行の相談内容・同意情報が揃い、Reply-Toが申込者宛であることを確認済み。
-HPの独自ドメインは必須ではなく、送信元だけ認証したドメインを使い、HPを仮URLのまま運用することも可能。
+- 正式URL: https://coaching-therapy.jp/
+- Cloudflare FreeのDNS・プロキシとWorkers Routesで配信する。
+- `coaching-therapy.jp/*` と `www.coaching-therapy.jp/*` を `coaching-therapy` に接続済み。
+- apexとwwwの既存Aレコードは `85.131.221.187` を保持し、両方Proxiedへ変更。旧サーバーのファイルは削除していない。Web配信はWorkerのStatic Assetsが担当し、旧サーバーには転送しない。
+- ネームサーバーは `erin.ns.cloudflare.com` / `major.ns.cloudflare.com`。
+- Redirect Rule `WWW to coaching-therapy.jp` でwwwをHTTPSのapexへ301転送。パス・クエリを保持。
+- Redirect Rule `HTTPS for coaching-therapy.jp` でapexのHTTPをHTTPSへ301転送。パス・クエリを保持。
+- `SITE_ORIGIN` とcanonical・OGP・sitemapの正式URLは `https://coaching-therapy.jp`。
+- workers.devは確認用URLとして残し、`PREVIEW_ORIGIN` に明示。検索向けのcanonicalは正式ドメインに統一。
+- ResendはVerified / Ready。送信元は `noreply@coaching-therapy.jp`。受付テスト制限は解除済み。
+- ユーザーは独自ドメインのメールを利用せずGmailのみを使用。旧MX・SPF・既存DKIM等は保持している。
+- 本番Version ID: `bea8905f-bbd9-4b79-aee7-0ff824b51985`（手動切り替え時）。
 
 2026年11月14日の確認結果:
 
-- 自動テスト14件が通過。本番ビルドで24ページを出力。
-- 仮URLの相談申し込みを1件送信し、D1保存とResendによる2通の送信受理を確認。
-- Gmail上で通知は受信トレイ、自動返信は迷惑メールフォルダーに到着していることを確認。
-- 390px幅の講座問い合わせで横のはみ出しがないこと、確認から修正へ戻って入力を保持することを確認。
-- 独自ドメインのDNS・既存サイトは未変更。
+- 自動テスト15件が通過。本番ビルドで24ページを出力。
+- 独自ドメインの全24ページをHTTPで確認し、すべて200・新HPのHTML・テスト表示なし。
+- HTTPSのトップ・フォーム、HTTPからHTTPS、HTTP/HTTPSのwwwからapexの転送を確認。クエリも保持。
+- robots.txtとsitemap.xmlが200で配信されることを確認。
+- 独自ドメインの相談フォームでTurnstile、入力確認、受付完了を実機確認。
+- 通知・自動返信ともGmail受信トレイへ到着。通知に氏名・希望日時2件・相談内容が入り、Reply-Toが申込者宛であることを確認。
 
 ## 構成
 
@@ -103,10 +93,9 @@ pnpm exec wrangler deploy
 
 初回はworkers.devの確認用URLで検証する。`PREVIEW_ORIGIN` とTurnstileの許可ホスト名に確認用URLを追加する。
 独自ドメインは、既存サイトを確認できる状態で移行する。Cloudflare DNSへ移す場合は、A・CNAME・MX・TXT等の既存レコードを確認し、メール設定も引き継ぐ。
-確認が済んだらWorkersのCustom Domainとして `coaching-therapy.jp` を接続する。`www` の利用方針とリダイレクトも確認する。
+現在は既存DNSレコードを保持するWorkers Routes方式を使用している。`wrangler.jsonc` のroutesとCloudflare DNSのProxied設定、および上記Redirect Rulesを維持する。
 
-現在のDNS管理先はエックスサーバー。既存のMXは `coaching-therapy.jp` 自体を参照しているため、
-将来Web用Aレコードを変更する際は、メール配送先まで変わらないよう管理者と確認する。
+DNS管理先はCloudflareへ移行済み。既存のMXは `coaching-therapy.jp` 自体を参照している。現在は独自ドメインのメールを使用していない。将来ドメインメールを導入するときは、Web配信先とは別に正しいメール配送先を設定する。
 メール認証用のResendドメインはDNS追加・認証とも完了済み。
 
 ## 公開前の実機確認

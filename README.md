@@ -5,7 +5,9 @@ React 19 / Vite 7、Cloudflare Workers Static Assetsで配信するサイトで�
 
 ## 公開
 
-現在の公開URL: https://coaching-therapy.coaching-therapy-react.workers.dev/
+現在の公開URL: https://coaching-therapy.jp/
+
+`www` およびHTTPから正式なHTTPS URLへ転送します。workers.devは確認用として残しています。
 
 Cloudflare Workers BuildsをGitHubの `sota0110/coaching_hp` に連携し、`main` へのpushで自動公開します。
 GitHub Pagesは公開停止し、Pages用ワークフローも削除しています。
@@ -17,7 +19,7 @@ Cloudflareの設定:
 - ビルドコマンド: `pnpm test && pnpm build:production`
 - デプロイコマンド: `pnpm db:migrate:remote && pnpm exec wrangler deploy`
 - ルートディレクトリ: `/`
-- ビルド変数: `NODE_VERSION=24`、本番用 `VITE_TURNSTILE_SITE_KEY`、現在の公開先を示す `SITE_URL`
+- ビルド変数: `NODE_VERSION=24`、本番用 `VITE_TURNSTILE_SITE_KEY`、`SITE_URL=https://coaching-therapy.jp/`
 - 本番以外のブランチからの自動公開は無効
 
 Workerの既存Secrets（Turnstile・Resend・送信制限用）はWorkerに保持します。

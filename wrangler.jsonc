@@ -5,6 +5,10 @@
   "compatibility_date": "2026-11-13",
   "workers_dev": true,
   "preview_urls": false,
+  "routes": [
+    { "pattern": "coaching-therapy.jp/*", "zone_name": "coaching-therapy.jp" },
+    { "pattern": "www.coaching-therapy.jp/*", "zone_name": "coaching-therapy.jp" }
+  ],
   "assets": {
     "directory": "./dist", "binding": "ASSETS",
     "run_worker_first": ["/api/*"],
@@ -17,7 +21,8 @@
     "migrations_dir": "migrations"
   }],
   "vars": {
-    "SITE_ORIGIN": "https://coaching-therapy.coaching-therapy-react.workers.dev",
+    "SITE_ORIGIN": "https://coaching-therapy.jp",
+    "PREVIEW_ORIGIN": "https://coaching-therapy.coaching-therapy-react.workers.dev",
     "NOTIFICATION_EMAIL": "souta.sumii@gmail.com",
     "MAIL_FROM": "こころのプライベートサロン <noreply@coaching-therapy.jp>"
   },

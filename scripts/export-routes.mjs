@@ -45,3 +45,6 @@ try {
 console.log(`Exported ${Object.keys(pages).length} page entry points.`);
 
 await writeFile(join(root, 'dist', '404.html'), html.replace(/<title>.*?<\/title>/, '<title>ページが見つかりません</title>'));
+const sitemapUrls = [...new Set(Object.keys(pages).map(path => new URL((path === '/coaching-course-contact/' ? '/trial-session-booking/' : path).replace(/^\//, ''), siteUrl).href))];
+await writeFile(join(root, 'dist', 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.map(url => `  <url><loc>${escape(url)}</loc></url>`).join('\n')}\n</urlset>\n`);
+await writeFile(join(root, 'dist', 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${new URL('sitemap.xml', siteUrl).href}\n`);
