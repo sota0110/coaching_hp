@@ -1,5 +1,16 @@
 # Cloudflare無料枠での本番運用
 
+## mainからの自動公開（2026年11月14日）
+
+- Cloudflare Workers Buildsを `sota0110/coaching_hp` のみに連携済み。
+- 本番ブランチは `main`。ビルドは有効、プレビュービルドは無効。
+- ビルド: `pnpm test && pnpm build:production`。
+- デプロイ: `pnpm db:migrate:remote && pnpm exec wrangler deploy`。
+- ビルド環境にNode.js 24、公開Turnstile site key、workers.devの `SITE_URL` を設定。
+- 既存のWorker SecretsとD1を継続使用する。
+- GitHub Pagesは公開停止済み。旧ワークフローを削除し、GitHub Actionsはテスト・通常ビルドのみ実施。
+- トップ画像もGit管理し、自動公開の対象に含めた。
+
 ## 現在の本番受付と独自ドメイン接続
 
 ### 独自ドメイン接続の進捗（2026年11月14日）
