@@ -1,0 +1,4 @@
+# コピーした .dev.vars はGit管理対象外。本番はwrangler secret putで設定。
+TURNSTILE_SECRET_KEY=replace-with-secret-key
+RESEND_API_KEY=replace-with-resend-key
+RATE_LIMIT_SALT=replace-with-random-secret

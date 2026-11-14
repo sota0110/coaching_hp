@@ -3,6 +3,7 @@ import { localUrl } from './paths';
 import { navigation, siteName, formRoutes, socialLinks } from './site-config';
 import { BookingLink } from './CallToAction';
 import HeadingText from './HeadingText';
+import { acceptanceTest, applicationMode } from './booking-api';
 
 function MobileBookingBar() {
   const [inlineBookingVisible, setInlineBookingVisible] = useState(false);
@@ -34,6 +35,6 @@ export default function SiteFooter({route}) {
         <span><strong>{label}</strong><small>{account}</small></span><span aria-hidden="true">↗</span>
       </a>)}
     </nav>
-    <p className="site-demo-label container">デモサイトです。フォームから実際の申し込み・メール送信は行われません。</p>
+    {acceptanceTest ? <p className="site-demo-label container">公開準備中です。実際のお申し込みは公式LINEをご利用ください。</p> : applicationMode === 'demo' && <p className="site-demo-label container">デモサイトです。フォームから実際の申し込み・メール送信は行われません。</p>}
   </footer>{sticky && <MobileBookingBar/>}</>;
 }

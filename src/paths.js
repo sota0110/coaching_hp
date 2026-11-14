@@ -1,4 +1,4 @@
-/** Project Pages uses /coaching_hp/, while the dev server stays at /. */
+/** Cloudflare and the dev server both serve the site from the root. */
 export const basePath = import.meta.env.BASE_URL;
 export function localUrl(url) {
   if (!url?.startsWith('/') || url.startsWith('//')) return url;

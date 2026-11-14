@@ -6,13 +6,13 @@ import { BookingLink, LineLink, PriceSummary, TextLink, ClosingInvitation } from
 export default function HomeContent() {
   return <div className="renewal-home">
     <section className="welcome-hero" aria-labelledby="welcome-title">
+      <figure className="welcome-banner"><img src={localUrl('/assets/home-salon-banner.jpg')} width="1672" height="941" alt="こころのプライベートサロン スイミーハーモニー。自然光とグリーンに包まれた、花のある明るいサロン" fetchPriority="high"/></figure>
       <div className="welcome-copy"><p className="section-kicker">ママと女性のための<br/>こころのプライベートサロン</p>
         <h1 id="welcome-title"><span>こころを整えることを、</span><span>もっと日常に。</span></h1>
         <p className="welcome-message">自分を整えると、<br/><span className="heading-phrase">人との関係も</span><span className="heading-phrase">自然と変わっていく。</span></p>
         <p className="location-note">渋谷区・代々木｜対面・オンライン対応</p>
         <PriceSummary compact/><BookingLink/>
       </div>
-      <figure className="welcome-photo"><img src={localUrl('/assets/home-salon-fast.jpg')} srcSet={`${localUrl('/assets/home-salon-mobile.jpg')} 480w, ${localUrl('/assets/home-salon-fast.jpg')} 900w`} sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1000px) 45vw, 540px" width="900" height="1200" alt="自然光が入る代々木のサロンでお話を伺うすみいみゆき" fetchPriority="high"/><figcaption>渋谷区代々木のプライベートサロン</figcaption></figure>
     </section>
     <section className="renewal-section concerns-section" aria-labelledby="concerns-title"><div className="section-heading"><p className="section-kicker">こんなお悩みありませんか？</p><h2 id="concerns-title">毎日頑張っているあなたへ</h2></div>
       <ul className="concern-list">{['子どもに優しくしたいのに、ついイライラしてしまう。','家族を優先して、自分のことはいつも後回し。','心配や不安で、気持ちが落ち着かない。','誰かに話を聴いてほしいけれど、なかなか話せない。','子育てが一段落して、これからの自分の人生を考えたい。','もっと自分らしく、毎日を楽しみたい。'].map(text=><li key={text}>{text}</li>)}</ul>

@@ -1,75 +1,63 @@
 # こころのプライベートサロン — React
 
-制作指示書に沿って構成・文章・導線を更新した React 19 / Vite 7 のサイトです。現在はGitHub Pagesで動くデモです。
+React 19 / Vite 7、Cloudflare Workers Static Assetsで配信するサイトです。
+申し込み・問い合わせはWorkers・D1・Turnstile・Resendで受け付けます。
 
-## 起動・ビルド
+## 公開
+
+現在の公開URL: https://coaching-therapy.coaching-therapy-react.workers.dev/
+
+Cloudflare Workers BuildsをGitHubの `sota0110/coaching_hp` に連携し、`main` へのpushで自動公開します。
+GitHub Pagesは公開停止し、Pages用ワークフローも削除しています。
+GitHub Actionsはテストと通常ビルドを実行します。公開前のテストはCloudflareのビルドコマンドでも実行します。
+
+Cloudflareの設定:
+
+- 本番ブランチ: `main`
+- ビルドコマンド: `pnpm test && pnpm build:production`
+- デプロイコマンド: `pnpm db:migrate:remote && pnpm exec wrangler deploy`
+- ルートディレクトリ: `/`
+- ビルド変数: `NODE_VERSION=24`、本番用 `VITE_TURNSTILE_SITE_KEY`、現在の公開先を示す `SITE_URL`
+- 本番以外のブランチからの自動公開は無効
+
+Workerの既存Secrets（Turnstile・Resend・送信制限用）はWorkerに保持します。
+`.env` と `.dev.vars` はGitに含めません。設定例は `.env.example` と `.dev.vars.example` を参照してください。
+独自ドメインの接続状況、通知・DNS・障害対応は [運用手順](docs/cloudflare-production.md) を参照してください。
+
+## ローカル開発と検証
 
 ```sh
-pnpm install
+pnpm install --frozen-lockfile
 pnpm dev
+pnpm test
 pnpm build
 pnpm preview
-pnpm test
 ```
 
 開発URL: http://127.0.0.1:5173/
+ビルド確認URL: http://127.0.0.1:4173/
+通常ビルドは公開鍵などの環境設定がなければフォームをデモとして動作させます。
+本番は必ず `pnpm build:production` を使い、実受付モードとルート配信を設定します。
 
-ビルド確認URL: http://127.0.0.1:4173/coaching_hp/
+手動公開が必要な場合:
 
-公開URL: https://sota0110.github.io/coaching_hp/
-
-`main`へのpushでGitHub Actionsがビルド・公開します。既存22URLにFAQ・プライバシーポリシーを追加し、24URLの静的HTMLを出力します。以前の予約カレンダーURLも新しい申し込みフォームを表示します。
-
-各ページの本文はビルド時にHTMLへ描画し、ブラウザーではReactを接続してメニューやフォームを有効にします。ページデータもHTMLに埋め込み、表示後の追加取得を省いています。トップ写真は画面幅に応じて480px・900pxの軽量画像を選択します。
-
-## 今回の更新
-
-- トップを制作指示書の内容・順序に整理。実際のサロン写真を使用し、料金をファーストビュー付近に表示。
-- メインメニューを指定の9項目に統一。
-- 初めての方向けの利用案内と、サービス内容・料金の詳細を分離。
-- 個別相談は75分・6,000円（税込）、公式LINE経由は5,000円（税込）。ハンドマッサージは対面で希望される方にのみ提供する表記に統一。
-- 伴走コースの3回・5回・10回の料金・期間を早い位置で比較可能に整理。
-- お客様の声33件を相談・講座初級・講座中上級の3テーマに整理。感想本文は原文を保持。
-- 代表的なFAQ5問をトップに掲載し、専用ページでテーマ別に案内。
-- 出版のお知らせはトップ下部の補足枠と、お知らせページに掲載。
-- 予約ボタンの文言・デザイン・遷移先を共通化。LINEは別デザイン。スマホには下部固定の予約導線を設置。
-- 講座専用の問い合わせ先を修正し、講座・伴走・単発・メンテナンスの問い合わせフォームは対象サービスを初期選択。
-- 元ページの誤字や不自然な表現を修正。お客様の感想原文は校正対象から除外。
-
-## 申し込みフォームのモック
-
-予約カレンダー・枠管理は撤去しています。
-
-お名前・メールアドレス・希望日時第1希望・相談方法を必須、第2希望・相談内容を任意として、入力→確認→修正→デモ送信完了まで動きます。プライバシーポリシーの確認も必須です。確認画面に日時は日本時間として表示します。
-
-デモ送信は `src/booking-api.js` のアダプターで処理します。**ネットワーク送信、メール配信、外部保存、ブラウザーストレージへの保存、予約確定は行いません。** ページ再読み込みで入力内容は破棄されます。完了画面で、本番運用時の自動返信文面と日程確定までの流れを確認できます。
-
-運営者の連絡先は `contact@example.invalid` という届かない仮アドレスを明示しています。プライバシーポリシーもデモ用の仮設定です。
-
-## AWS／VPSへの移行時
-
-- `BASE_PATH=/ pnpm build` でルート配信向けにビルドできます。`SITE_URL=https://本番ドメイン/` でcanonical・OGPのURLを設定してください。
-- `src/booking-api.js` の `submitApplication` を実際の受付APIへの送信処理へ置き換え、入力値をサーバー側でも検証してください。
-- 入力データは `name`, `email`, `service`, `firstPreference`, `secondPreference`, `method`, `message`, `timeZone`, `kind`。講座のお問い合わせでは任意の `course` も含めます。日時文字列は日本時間、`timeZone` は `Asia/Tokyo` です。
-- 申し込み通知・自動返信・申し込み内容の保管と主催者向け確認画面は、現在未接続です。実装後に実際の通知・返信・保管を検証してください。
-- 送信完了は受付APIで受理された後に表示し、予約は日程を双方で合意して確定する方式にします。
-- 本番の連絡先、保管先・保存期間・削除方法・外部サービスへの委託を確定し、プライバシーポリシーとデモ表示を更新してください。
+```sh
+pnpm test
+pnpm build:production
+pnpm db:migrate:remote
+pnpm exec wrangler deploy
+```
 
 ## 主な構成
 
-- `src/site-config.js`: ナビゲーション、共通文言、ページタイトル、FAQ。
-- `src/HomeContent.jsx`: 指示書に沿ったトップページ。
-- `src/RenewalPages.jsx`: 利用案内、個別相談、フォーム案内、FAQ、仮ポリシー等。
-- `src/BookingForm.jsx` / `src/booking-api.js`: モック申し込みと後日の受付処理の差し替え箇所。
+- `src/HomeContent.jsx`: トップ画面。サロンの横長画像を全体表示します。
+- `src/site-config.js`: ナビゲーション、共通文言、料金、FAQ。
+- `src/BookingForm.jsx` / `src/booking-api.js`: 申し込み・問い合わせ。
+- `worker/` / `shared/` / `migrations/`: 受付API、検証、D1スキーマ。
 - `src/SiteHeader.jsx` / `src/SiteFooter.jsx` / `src/CallToAction.jsx`: 共通ナビゲーションと予約導線。
-- `src/VoicesPage.jsx`: お客様の声の分類・原文表示。
-- `src/design.css` / `src/renewal.css`: 共通デザインと制作指示書のレイアウト。
-- `src/pages/`: 元サイトから取り込んだ参照コンテンツ。新構成のないページの本文に利用。
-- `scripts/export-routes.mjs`: 全ページの静的エントリー・ページ別メタデータ生成。
+- `src/design.css` / `src/renewal.css`: デザインとレイアウト。
+- `scripts/export-routes.mjs`: 24ページの静的HTML・メタデータ生成。
 - `reference/`: 元サイトの参照データ。
 
-## 確認
-
-24ページを320・390・768・1280pxで確認し、横のはみ出し・画像切れ・旧カレンダー・旧60分表記がないことを検証しました。申し込みの必須入力・メール形式・任意項目・確認・修正・デモ完了、メニューのキーボード操作、予約・LINE・講座のリンク、感想原文の一致も確認しました。
-
-写真等の元サイト公開素材の権利は各権利者に帰属します。Googleマップと外部リンクの表示にはネットワーク接続が必要です。
+本文はビルド時にHTMLへ描画し、Reactでメニューやフォームを有効にします。
+写真等の元サイト公開素材の権利は各権利者に帰属します。

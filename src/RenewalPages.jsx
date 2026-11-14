@@ -4,6 +4,8 @@ import BookingForm, { DemoNotice } from './BookingForm';
 import { localUrl } from './paths';
 import { courseAnnouncementUrl, faqs, formatPrice, inquiryTopics, lineUrl, maintenancePricing, sessionPricing, therapyInquiryPath, workshopInquiryPath } from './site-config';
 import { BookingLink, LineLink, PriceSummary, TextLink } from './CallToAction';
+import { applicationMode } from './booking-api';
+import { retentionDays, privacyVersion } from '../shared/application.js';
 
 export function FAQList({items=faqs}) { return items.map(({q,a})=><details className="faq-item" key={q}><summary>{q}</summary><p>{a}</p></details>); }
 export function FirstVisitPage() {
@@ -179,6 +181,15 @@ export function FAQPage() {
   return <div className="editorial-page"><p className="intro-paragraph">初めてのご相談からお申し込み、講座について。安心してご利用いただけるよう、よくいただくご質問をまとめました。</p><nav className="topic-links" aria-label="質問のテーマ">{['ご相談について','お申し込み・ご利用方法','講座について'].map((group,i)=><a href={`#faq-group-${i}`} key={group}>{group}</a>)}</nav>{['ご相談について','お申し込み・ご利用方法','講座について'].map((group,i)=><section id={`faq-group-${i}`} key={group}><h2>{group}</h2><FAQList items={faqs.filter(f=>f.group===group)}/></section>)}<div className="action-group"><BookingLink/><LineLink/></div></div>;
 }
 export function PrivacyPage() {
+  if (applicationMode === 'production') return <article className="editorial-page privacy-page">
+    <p>こころのプライベートサロンは、お申し込み・お問い合わせの際にお預かりする情報を、以下のとおり取り扱います。</p>
+    <section><h2>お預かりする情報と利用目的</h2><p>お名前、メールアドレス、ご希望のサービス・講座、希望日時、相談方法、任意のご相談内容、同意したポリシーの版と受付日時を取得し、受付、日程調整、お問い合わせへの回答に利用します。ご相談内容には、必要以上に詳しい健康情報や第三者の個人情報を記載しないようお願いいたします。</p></section>
+    <section><h2>保管・削除と安全管理</h2><p>フォームの内容はCloudflare D1に保存し、受付から{retentionDays}日経過後に自動削除します。また、受付対応のため、お名前・メールアドレス・希望日時・ご相談内容などの申し込み内容を運営者への通知メールに記載し、運営者のGmailで受信・保管します。運営者が受信・送信した対応メールは、対応完了後1年を目安に削除します。法令上保存が必要な情報は、その期間保管します。</p><p>通信の暗号化、アクセス権限の管理、迷惑送信対策を行います。申込者への自動返信メールにはご相談内容を転載しません。ブラウザーのストレージにはフォームの入力内容を保存しません。</p></section>
+    <section><h2>外部サービスの利用</h2><p>サイト配信、情報の保管、送信確認にはCloudflare（Workers、D1、Turnstile）、通知・自動返信にはResendを利用します。サービス提供に必要な範囲で情報を委託先へ送信し、日本国外で処理・保管される場合があります。</p><p>送信確認にはIPアドレス等が利用されます。また、連続送信防止のためIPアドレスから生成した識別子を短期間保持します。メール配信サービスが保持する配信記録等には各サービスの保持方針が適用されます。</p></section>
+    <section><h2>外部リンク・地図</h2><p>公式LINE、SNS、Googleマップ等の利用時には、各サービスのプライバシーポリシーが適用されます。</p></section>
+    <section><h2>運営者・お問い合わせ窓口</h2><dl className="service-facts"><div><dt>サロン名</dt><dd>こころのプライベートサロン</dd></div><div><dt>運営者</dt><dd>すみいみゆき</dd></div></dl><p>ご自身の情報の開示・訂正・削除等のご相談は、<a href={lineUrl}>公式LINE</a>よりご連絡ください。ご本人確認のうえ対応いたします。</p></section>
+    <p className="small-note">更新日：{privacyVersion.slice(0, 10)}</p>
+  </article>;
   return <article className="editorial-page privacy-page"><p className="demo-notice"><strong>デモサイト用の仮設定です。</strong>運営者情報・連絡先・本番の受付方法は、実運用を始める前に確定し、本ページを更新します。</p><p>こころのプライベートサロンは、お申し込み・お問い合わせの際にお預かりする情報を大切に取り扱います。</p>
     <section><h2>現在のデモフォームについて</h2><p>フォームに入力した内容は、この画面の入力確認とデモ完了表示のためだけに利用します。メール送信、サーバーへの送信・保存は行いません。主催者に申し込み内容は届かず、予約も確定しません。</p><p>入力情報をブラウザーのストレージに保存することもありません。ページを再読み込みすると、画面で保持していた入力内容は破棄されます。</p></section>
     <section><h2>本番でお預かりする予定の情報と利用目的</h2><p>お名前、メールアドレス、希望日時、ご希望の相談方法、ご相談内容を、お申し込みへの対応、日程調整、お問い合わせへの回答に利用する予定です。ご相談内容の記入は任意とします。</p><p>受付システムの運用開始前に、情報の保管先、保存期間、削除方法、外部サービスへの委託の有無を確定し、本ページに掲載します。</p></section>
