@@ -417,7 +417,7 @@ body.renewal-site { font-size:16px; line-height:1.95; }
   .salon-header .desktop-navigation { padding-block:4px; column-gap:32px; row-gap:0; }
   .salon-header .desktop-navigation a { min-height:44px; }
   .welcome-hero { margin-top:24px; }
-  .welcome-copy { padding-block:8px; }
+  .welcome-copy { position:relative; left:-12px; padding-block:8px; }
   .welcome-copy .section-kicker { margin-bottom:14px; font-size:13px; }
   .welcome-copy .section-kicker br { display:none; }
   .welcome-copy h1 { font-size:36px; line-height:1.65; margin-bottom:20px; }
