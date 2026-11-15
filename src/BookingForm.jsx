@@ -127,7 +127,7 @@ export default function BookingForm({ inquiry = false, service = 'プライベ�
     {production && <p>通常2営業日以内を目安に主催者からご連絡します。連絡がない場合は、受付番号を添えて公式LINEからお問い合わせください。</p>}
     {!production && <div className="reply-preview">
       <h3>自動返信メールのプレビュー</h3>
-      <p>{inquiry ? autoReplyMessage.replace('お申し込み', 'お問い合わせ') : autoReplyMessage}</p>
+      <p>{inquiry ? autoReplyMessage.replace('お申し込み', 'お問い合わせいただき、') : autoReplyMessage}</p>
     </div>}
     {!inquiry && <>
       <h3 className="receipt-next-title">{production ? '日程調整の流れ（予約はまだ確定していません）' : '本番での日程調整の流れ'}</h3>

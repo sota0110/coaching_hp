@@ -88,10 +88,10 @@ export function createWorker({ fetch: send = globalThis.fetch, pause = ms => new
         from: env.MAIL_FROM,
         to: [notification ? env.NOTIFICATION_EMAIL : data.email],
         ...(notification ? { reply_to: data.email } : {}),
-        subject: notification ? `【新しい受付】${application.id}` : `【こころのプライベートサロン】受付のお知らせ ${application.id}`,
+        subject: notification ? `【新しい受付】${application.id}` : '【こころのプライベートサロン】受付のお知らせ',
         text: notification
           ? notificationText(application, data)
-          : `${data.kind === 'inquiry' ? autoReplyMessage.replace('お申し込み', 'お問い合わせ') : autoReplyMessage}\n\n受付番号：${application.id}\n${data.kind === 'private-session' ? 'この時点では予約は確定していません。主催者からの日程調整の連絡をお待ちください。\n' : ''}\nこのメールは送信専用です。お問い合わせは公式LINEからお願いいたします。\nhttps://line.me/R/ti/p/@615ytuyo`,
+          : `${data.kind === 'inquiry' ? autoReplyMessage.replace('お申し込み', 'お問い合わせいただき、') : autoReplyMessage}\n\n${data.kind === 'private-session' ? 'この時点では予約は確定していません。主催者からの日程調整の連絡をお待ちください。\n\n' : ''}このメールは送信専用です。お問い合わせは公式LINEからお願いいたします。\nhttps://line.me/R/ti/p/@615ytuyo`,
       };
       try {
         const response = await send('https://api.resend.com/emails', {

@@ -23,7 +23,7 @@
   "vars": {
     "SITE_ORIGIN": "https://coaching-therapy.jp",
     "PREVIEW_ORIGIN": "https://coaching-therapy.coaching-therapy-react.workers.dev",
-    "NOTIFICATION_EMAIL": "souta.sumii@gmail.com",
+    "NOTIFICATION_EMAIL": "kosodate.sunnyday@gmail.com",
     "MAIL_FROM": "こころのプライベートサロン <noreply@coaching-therapy.jp>"
   },
   "triggers": { "crons": ["*/10 * * * *"] },

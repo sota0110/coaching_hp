@@ -70,6 +70,9 @@ test('accepted applications include all details in owner notification and keep c
   assert(notification.text.includes(receipt.reference));
   assert.equal(notification.html, undefined);
   assert(!reply.text.includes(input.message));
+  assert.match(reply.text, /お申し込みありがとうございます。/);
+  assert(!`${reply.subject}\n${reply.text}`.includes(receipt.reference));
+  assert(!reply.text.includes('受付番号'));
   assert.equal(messages[0].reply_to, 'applicant@example.com');
   assert.equal(messages[1].reply_to, undefined);
 });
@@ -77,7 +80,13 @@ test('course inquiries include selected course, multiline message and explicit e
   const s = setup();
   const response = await s.post({ ...application(), kind: 'inquiry', service: 'コーチング＆セラピー講座', course: '初級コース', message: '講座について\n質問です。' });
   assert.equal(response.status, 201); await s.finish();
-  const mail = s.calls.filter(c => c.url.includes('resend')).map(c => JSON.parse(c.options.body)).find(m => m.to[0] === 'owner@example.com');
+  const messages = s.calls.filter(c => c.url.includes('resend')).map(c => JSON.parse(c.options.body));
+  const mail = messages.find(m => m.to[0] === 'owner@example.com');
+  const reply = messages.find(m => m.to[0] === 'applicant@example.com');
+  const receipt = await response.json();
+  assert.match(reply.text, /お問い合わせいただき、ありがとうございます。/);
+  assert(!`${reply.subject}\n${reply.text}`.includes(receipt.reference));
+  assert(!reply.text.includes('受付番号'));
   assert(mail.text.includes('お問い合わせの講座：初級コース'));
   assert(mail.text.includes('講座について\n質問です。'));
   assert(mail.text.includes('希望日時・第1希望：未入力'));
