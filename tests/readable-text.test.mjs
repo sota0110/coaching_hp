@@ -5,6 +5,15 @@ import { readableCreateElement as el } from '../src/readable-text.js';
 
 const textContent = value => typeof value === 'string' || typeof value === 'number' ? String(value) :
   Array.isArray(value) ? value.map(textContent).join('') : value?.props ? textContent(value.props.children) : '';
+const phrases = node => Array.isArray(node) ? node.flatMap(phrases) :
+  node?.props?.className === 'reading-phrase' ? [textContent(node)] : node?.props ? phrases(node.props.children) : [];
+
+test('service terms, names and verb endings remain together', () => {
+  const chunks = phrases(el('p', null, '代々木のサロンで、ホッとひと息。プライベートコーチング相談のお問い合わせ。始めてみませんか？'));
+  for (const word of ['代々木', 'ホッとひと息', 'プライベート', 'コーチング', '相談', 'お問い合わせ', 'みませんか']) {
+    assert(chunks.some(chunk => chunk.includes(word)), word);
+  }
+});
 
 test('responsive typography preserves punctuation, quotes, whitespace and mixed inline content', () => {
   for (const text of ['、まずは、お気軽にご相談ください。', '「大丈夫です。」とお伝えします。', '動画教材を 60本 お届けします。', '1,000円OFF\nオンライン（Zoom）', '相談できますか？ はい、大丈夫です！']) {

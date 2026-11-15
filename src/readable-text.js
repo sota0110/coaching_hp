@@ -1,27 +1,20 @@
 import { createElement } from 'react';
-import { Parser, jaModel, jaWordModel } from 'budoux';
+import { Parser, jaModel } from 'budoux';
 
 const parser = new Parser(jaModel);
-const wordParser = new Parser(jaWordModel);
 const japanese = /[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u;
 const untouchedTags = new Set(['script', 'style', 'textarea', 'input', 'select', 'option', 'pre', 'code', 'svg', 'title']);
 const cache = new Map();
 
 function phrasesFor(clause) {
   const boundaries = new Set(parser.parseBoundaries(clause));
-  let offset = 0;
-  for (const phrase of parser.parse(clause)) {
-    if (phrase.length > 8) {
-      for (const i of wordParser.parseBoundaries(phrase)) boundaries.add(offset + i);
-    }
-    offset += phrase.length;
-  }
   // Keep compound words and names intact even if the statistical model proposes
   // an internal boundary (for example, 代々木 or 笑顔).
   for (const match of clause.matchAll(/[\p{Script=Han}々]+|[\p{Script=Katakana}ー]+|[A-Za-z0-9]+|すみいみゆき/gu)) {
     for (let i = match.index + 1; i < match.index + match[0].length; i++) boundaries.delete(i);
   }
-  for (const match of clause.matchAll(/プライベート|コーチング|セラピー|メンテナンス|セッション|ハンドマッサージ|オンライン|お問い合わせ|問い合わせ|プライバシー|ポリシー|すみいみゆき|公式LINE|代々木|笑顔|[・｜　]/gu)) {
+  for (const match of clause.matchAll(/プライベート|コーチング|セラピー|メンテナンス|セッション|ハンドマッサージ|オンライン|お問い合わせ|問い合わせ|プライバシー|ポリシー|すみいみゆき|公式LINE|代々木|笑顔|ホッとひと息|ご相談|相談|だからこそ|ことがある|みませんか|[・｜　]/gu)) {
+    for (let i = match.index + 1; i < match.index + match[0].length; i++) boundaries.delete(i);
     if (match.index) boundaries.add(match.index);
     if (match.index + match[0].length < clause.length) boundaries.add(match.index + match[0].length);
   }
