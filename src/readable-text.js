@@ -18,7 +18,7 @@ function phrasesFor(clause) {
     if (match.index) boundaries.add(match.index);
     if (match.index + match[0].length < clause.length) boundaries.add(match.index + match[0].length);
   }
-  for (const match of clause.matchAll(/プライベート|コーチング|セラピー|メンテナンス|セッション|ハンドマッサージ|オンライン|お問い合わせ|問い合わせ|プライバシー|ポリシー|すみいみゆき|公式LINE|代々木|笑顔|ゆるめる|ホッとひと息|ご相談|相談|だからこそ|ことがある|みませんか|ように|かもしれません|できる|[・｜　 ]/gu)) {
+  for (const match of clause.matchAll(/プライベート|コーチング|セラピー|メンテナンス|セッション|ハンドマッサージ|オンライン|お問い合わせ|問い合わせ|プライバシー|ポリシー|すみいみゆき|公式LINE|代々木|笑顔|ゆるめる|ホッとひと息|ご相談|相談|お話し|いただける|だからこそ|ことがある|みませんか|ように|かもしれません|できる|[・｜　 ]/gu)) {
     for (let i = match.index + 1; i < match.index + match[0].length; i++) boundaries.delete(i);
     if (match.index) boundaries.add(match.index);
     if (match.index + match[0].length < clause.length) boundaries.add(match.index + match[0].length);
@@ -48,11 +48,30 @@ function formatChild(child, index) {
   return Array.isArray(child) ? child.map(formatChild) : readableText(child, index);
 }
 
+function flowingChildren(children) {
+  const result = [];
+  let afterBreak = false;
+  for (const child of children) {
+    // Keep React's array key scopes intact for mapped lists and interactive UI.
+    if (Array.isArray(child)) { result.push(flowingChildren(child)); afterBreak = false; continue; }
+    if (child?.type === 'br') { afterBreak = true; continue; }
+    if (child == null || typeof child === 'boolean') continue;
+    const previous = result.at(-1);
+    if (typeof child === 'string' && typeof previous === 'string') {
+      const space = afterBreak && /[A-Za-z0-9]$/.test(previous) && /^[A-Za-z0-9]/.test(child) ? ' ' : '';
+      result[result.length - 1] = previous + space + child;
+    } else result.push(child);
+    afterBreak = false;
+  }
+  return result;
+}
+
 // Shared classic JSX factory: only visible text changes. Props, controls, refs and
-// component children retain their original values; existing explicit phrases stay intact.
+// component children retain their original values. Legacy inline breaks become
+// flowing text before phrase detection, so words split by old markup rejoin.
 export function readableCreateElement(type, props, ...children) {
   const format = typeof type === 'string' && !untouchedTags.has(type) &&
     !props?.['aria-hidden'] && !props?.contentEditable &&
     !/(?:^|\s)(?:heading-phrase|session-phrase|screen-reader-text)(?:\s|$)/.test(props?.className || '');
-  return createElement(type, props, ...(format ? children.map(formatChild) : children));
+  return createElement(type, props, ...(format ? flowingChildren(children).map(formatChild) : children));
 }
