@@ -1,6 +1,15 @@
 /* The approved renewal brief: calm mint, readable copy, and a clear path to apply. */
 :root { --paper:#fafbf8; --soft:#edf5ef; --green:#315b4b; --ink:#36463f; --muted:#68776e; --line:#d8e4da; --accent:#627d67; }
 body.renewal-site { font-size:16px; line-height:1.95; }
+/* Prefer punctuation boundaries, then semantic Japanese phrases at every viewport width. */
+.renewal-site #root :is(.reading-text,.reading-clause,.reading-phrase) {
+  font:inherit; letter-spacing:inherit; margin:0; padding:0; text-decoration:inherit;
+  word-break:normal; text-wrap:wrap; overflow-wrap:normal;
+}
+.renewal-site #root .reading-text { display:inline; }
+.renewal-site #root .reading-clause { display:inline-block; max-inline-size:100%; vertical-align:top; }
+.renewal-site #root .reading-phrase { display:inline-block; white-space:nowrap; }
+.renewal-site :where(main,section,article,aside,header,nav,div,figure,li,dt,dd,a) { min-inline-size:0; }
 .renewal-main { padding-block:clamp(44px,6vw,76px); }
 .renewal-main.is-home { padding:0; }
 .salon-header .header-main { min-height:100px; }
@@ -47,8 +56,9 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 .price-summary > p:first-child > strong { font-family:var(--serif); font-size:34px; font-weight:500; line-height:1.5; }
 .price-summary > p:first-child strong span { font-family:var(--sans); font-size:15px; margin-left:4px; }
 .price-summary .line-price-link {
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
   align-items:center;
   column-gap:10px;
   min-height:48px;
@@ -97,6 +107,7 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 .host-section { display:grid; grid-template-columns:.85fr 1.15fr; gap:64px; align-items:center; }
 .host-section figure img { width:100%; aspect-ratio:4/3; object-fit:cover; object-position:center; border-radius:4px; }
 .host-section h2 { font-size:36px; }
+.renewal-home .voice-grid { grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr)); }
 .testimonial { background:white; margin:0; padding:32px; border-top:2px solid #b1c9b2; display:flex; flex-direction:column; }
 .testimonial h3 { font-size:22px; }
 .testimonial blockquote { margin:0 0 24px; font-size:16px; }
@@ -171,7 +182,7 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 .three-principles h3 { font-size:22px; }
 .three-principles p { font-size:16px; margin:0; }
 .service-facts { margin:0; border-top:1px solid var(--line); }
-.service-facts > div { display:grid; grid-template-columns:170px 1fr; border-bottom:1px solid var(--line); }
+.service-facts > div { display:grid; grid-template-columns:200px 1fr; border-bottom:1px solid var(--line); }
 .service-facts dt { padding:22px; background:var(--soft); font-weight:500; }
 .service-facts dd { padding:22px; margin:0; }
 .booking-page { max-width:760px; margin-inline:auto; }
@@ -418,7 +429,7 @@ body.renewal-site { font-size:16px; line-height:1.95; }
   .salon-header .header-main { min-height:88px; padding-block:14px; }
   .salon-header .desktop-navigation { padding-block:4px; column-gap:32px; row-gap:0; }
   .salon-header .desktop-navigation a { min-height:44px; }
-  .welcome-hero { position:relative; left:calc(clamp(-136px,554px - 55vw,0px) + 60px); margin-top:24px; }
+  .welcome-hero { position:relative; left:min(40px,calc(clamp(-136px,554px - 55vw,0px) + 60px)); margin-top:24px; }
   .welcome-copy { position:relative; left:-12px; padding-block:8px; }
   .welcome-copy .section-kicker { margin-bottom:14px; font-size:13px; }
   .welcome-copy .section-kicker br { display:none; }

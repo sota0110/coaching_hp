@@ -19,8 +19,9 @@ test('all published pages render their content without browser JavaScript', asyn
       assert(!html.includes('読み込み中…'), route);
       assert(!html.includes('ページを読み込めませんでした'), route);
       if (route === '/コーチング/') {
-        assert(html.includes('はじめての方も安心してご利用いただける'), route);
-        assert(html.includes('セッションの流れ'), route);
+        const text = html.replace(/<[^>]*>/g, '');
+        assert(text.includes('はじめての方も安心してご利用いただける'), route);
+        assert(text.includes('セッションの流れ'), route);
       }
     }
   } finally {

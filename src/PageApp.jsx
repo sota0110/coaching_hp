@@ -1,4 +1,5 @@
-import React, { createElement, useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { readableCreateElement as createElement, readableText } from './readable-text';
 import SalonPhoto from './SalonPhoto';
 import pageManifest from './page-manifest.json';
 const pageLoaders = import.meta.glob('./pages/*.json', { import: 'default' });
@@ -83,7 +84,7 @@ export function createPageApp(route) {
     if (typeof node === 'string') {
       node = corrected(node);
       if (!inHeading) return node;
-      return <React.Fragment key={key}>{node.split(/(プライベート|コーチング|セラピー|お問い合わせ|すみいみゆき|ホッとひと息♡|はじめての方へ|自分らしい|見つける|オリジナル|セッション)/g).map((part, index) => index % 2 ? <span className="heading-phrase" key={index}>{part}</span> : part)}</React.Fragment>;
+      return <React.Fragment key={key}>{node.split(/(プライベート|コーチング|セラピー|お問い合わせ|すみいみゆき|ホッとひと息♡|はじめての方へ|自分らしい|見つける|オリジナル|セッション)/g).map((part, index) => index % 2 ? <span className="heading-phrase" key={index}>{part}</span> : readableText(part,index))}</React.Fragment>;
     }
     if (node.tag === 'style' || node.tag === 'script') return null;
     if (['archive-header', 'comments-area'].includes(node.attrs.class)) return null;

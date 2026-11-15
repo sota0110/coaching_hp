@@ -58,6 +58,7 @@ pnpm exec wrangler deploy
 - `worker/` / `shared/` / `migrations/`: 受付API、検証、D1スキーマ。
 - `src/SiteHeader.jsx` / `src/SiteFooter.jsx` / `src/CallToAction.jsx`: 共通ナビゲーションと予約導線。
 - `src/design.css` / `src/renewal.css`: デザインとレイアウト。
+- `src/readable-text.js`: 共通JSXファクトリー。句読点と日本語の意味のまとまりを優先して折り返し、静的HTMLとブラウザーで同じ表示を生成します。BudouXのバージョン更新時は、`vite.config.js` の日本語モデル用エイリアスも確認します。
 - `scripts/export-routes.mjs`: 24ページの静的HTML・メタデータ生成。
 - `reference/`: 元サイトの参照データ。
 
