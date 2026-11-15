@@ -15,7 +15,7 @@ export function FirstVisitPage() {
       <p>「何を話したらよいかわからない」「相談するほどのことなのかな」。そんな気持ちのままでも、お越しいただけます。</p>
       <PriceSummary compact/>
     </header>
-    <SalonPhoto scene="warm-gathering" className="welcome-gathering"/>
+    <SalonPhoto scene="first-visit-dialogue" className="welcome-gathering"/>
     <section>
       <h2>どんな方が利用できますか？</h2>
       <p>子育て中のママから、子育てが一段落した女性、家族や親との関係、自分自身のこれからを考える女性まで。少し立ち止まって気持ちを整理したいときにもご利用いただけます。</p>
@@ -66,7 +66,7 @@ export function PrivateSessionPage() {
       <p>15年以上にわたる子育て支援の経験と、心理学・コーチング・セラピーの学びを生かし、今の気持ちや考えを一緒に整理していきます。</p>
       <p>うまく言葉にできなくても大丈夫。<br/>話したいことがまとまっていなくても大丈夫です。</p>
       <p>自分では気づいていなかった本音や、本当に大切にしたいことに気づき、これからの自分に必要な一歩を見つけていく時間です。</p>
-      <p>対面でのご相談では、ご希望に応じてハンドマッサージも行っています。心と身体をゆるめ、ほっとリラックスした時間から始めましょう。</p>
+      <p>対面でのご相談では、ご希望に応じてハンドマッサージも行っています。心と身体をゆるめ、<span className="session-phrase">ホッとリラックス</span><span className="session-phrase">した時間から</span><span className="session-phrase">始めましょう。</span></p>
       <p>一度のご相談からお気軽にご利用いただけます。</p>
     </section>
     <section>
@@ -85,7 +85,7 @@ export function PrivateSessionPage() {
         <li>
           <h3><span className="session-step">STEP 3</span>新たな気づきを、これからの一歩へ</h3>
           <p>セッションでの気づきをもとに、これからどうしていきたいのかを一緒に考えていきます。</p>
-          <p>必要に応じて、心理学やコーチングの視点からヒントをお伝えしたり、お話を通じて感じたことをメッセージとしてお届けしたりします。</p>
+          <p>必要に応じて、心理学やコーチングの視点からヒントをお伝えしたり、<span className="session-phrase">お話を通じて</span><span className="session-phrase">感じたことを</span><span className="session-phrase">メッセージとして</span><span className="session-phrase">お届けしたりします。</span></p>
           <p>新たな視点や気づきを、これからの日々の暮らしや行動につなげていきましょう。</p>
         </li>
       </ol>

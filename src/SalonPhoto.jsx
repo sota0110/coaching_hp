@@ -2,6 +2,7 @@ import React from 'react';
 import { localUrl } from './paths';
 
 const photos = {
+  'first-visit-dialogue': { width: 1600, height: 1066, alt: '花と緑のある明るいサロンで、笑顔でお話しする様子' },
   'private-dialogue': { width: 560, height: 524, alt: '明るい部屋で、一人ひとりのお話に耳を傾ける様子' },
   'coaching-lesson': { width: 440, height: 524, alt: '緑に囲まれた空間で、こころについて学ぶ講座の様子' },
   'shared-dialogue': { width: 508, height: 504, alt: 'テーブルを囲み、笑顔でゆっくり対話する様子' },

@@ -134,6 +134,8 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 .numbered-flow.session-flow li { padding-inline-start:0; }
 .session-flow li::before { content:none; }
 .session-flow li p + p { margin-top:12px; }
+/* Keep short phrases together; wrap before them whenever the available width runs out. */
+.private-session-page .session-phrase { display:inline-block; white-space:nowrap; }
 .session-step { display:block; margin-bottom:6px; color:var(--accent); font:500 13px/1.5 var(--sans); letter-spacing:.06em; }
 .maintenance-facts { margin:0; }
 .salon-scene { margin:0 0 28px; }
