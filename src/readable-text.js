@@ -45,7 +45,7 @@ export function readableText(text, key) {
 }
 
 function formatChild(child, index) {
-  return Array.isArray(child) ? child.map(formatChild) : readableText(child, index);
+  return Array.isArray(child) ? child.map(formatChild) : readableText(child, `reading-text-${index}`);
 }
 
 function flowingChildren(children) {

@@ -57,3 +57,9 @@ test('legacy inline breaks rejoin words and allow prose and headings to flow', (
   const paragraphs = el('div', null, el('p', null, '一つ目。'), el('p', null, '二つ目。'));
   assert.equal((renderToStaticMarkup(paragraphs).match(/<p>/g) || []).length, 2);
 });
+
+test('removing breaks does not reuse keys belonging to inline elements', () => {
+  const node = el('p', null, ['前の文', el('br'), '次の文', el('strong', { key: 2 }, '強調'), '続く文']);
+  const keys = node.props.children.map(child => child.key);
+  assert.equal(new Set(keys).size, keys.length);
+});
