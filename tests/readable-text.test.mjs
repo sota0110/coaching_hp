@@ -15,6 +15,15 @@ test('service terms, names and verb endings remain together', () => {
   }
 });
 
+test('long testimonials and profile credentials expose natural wrapping points', () => {
+  for (const text of ['立命館大学 産業社会学部 発達福祉コース卒業', 'ベストタイミングなのかもしれません。', '受け止められるようになりましたし、', 'ポジティブ変換できるようになった。', 'ホームページ完成しました！']) {
+    const node = el('p', null, text);
+    assert.equal(textContent(node), text);
+    assert(phrases(node).length > 1, text);
+    assert(phrases(node).every(phrase => phrase.length < 16), text);
+  }
+});
+
 test('responsive typography preserves punctuation, quotes, whitespace and mixed inline content', () => {
   for (const text of ['、まずは、お気軽にご相談ください。', '「大丈夫です。」とお伝えします。', '動画教材を 60本 お届けします。', '1,000円OFF\nオンライン（Zoom）', '相談できますか？ はい、大丈夫です！']) {
     assert.equal(textContent(el('p', null, text)), text);
