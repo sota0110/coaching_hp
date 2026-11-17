@@ -3,6 +3,47 @@ import { localUrl, pageRoute } from './paths';
 import { bookingPath, navigation, siteName } from './site-config';
 import { BookingLink } from './CallToAction';
 import HeadingText from './HeadingText';
+import './navigation.css';
+
+const consultationLinks = navigation.filter(([, href]) => ['/コーチング/', '/伴走コース/'].includes(href));
+
+function ConsultationMenu({ route, mobile = false, menuVisible = true }) {
+  const group = useRef(null);
+  const trigger = useRef(null);
+  const [expanded, setExpanded] = useState(false);
+  const id = mobile ? 'mobile-consultation-links' : 'desktop-consultation-links';
+  const active = consultationLinks.some(([, href]) => href === route);
+  useEffect(() => {
+    if (mobile && !menuVisible) setExpanded(false);
+  }, [mobile, menuVisible]);
+  useEffect(() => {
+    if (!expanded) return;
+    const closeOutside = event => {
+      if (!group.current?.contains(event.target)) setExpanded(false);
+    };
+    document.addEventListener('pointerdown', closeOutside);
+    return () => document.removeEventListener('pointerdown', closeOutside);
+  }, [expanded]);
+  return <div ref={group} className={`consultation-menu${active ? ' is-current' : ''}`}
+    onPointerEnter={event => { if (!mobile && event.pointerType === 'mouse') setExpanded(true); }}
+    onPointerLeave={event => { if (!mobile && event.pointerType === 'mouse') setExpanded(false); }}
+    onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setExpanded(false); }}
+    onKeyDown={event => {
+      if (event.key === 'Escape' && expanded) {
+        event.preventDefault(); event.stopPropagation(); setExpanded(false); trigger.current.focus();
+      }
+    }}>
+    <button ref={trigger} type="button" className="consultation-trigger" aria-expanded={expanded} aria-controls={id}
+      onClick={() => setExpanded(value => !value)}>
+      <span>1on1相談</span><svg className="consultation-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m2 4 4 4 4-4" stroke="currentColor" strokeWidth="1.5"/></svg>
+    </button>
+    <div id={id} className="consultation-submenu" hidden={!expanded}>
+      {consultationLinks.map(([label, href]) => <a key={href} href={localUrl(href)} aria-current={href === route ? 'page' : undefined}>
+        <span>{label}</span><span aria-hidden="true">→</span>
+      </a>)}
+    </div>
+  </div>;
+}
 
 export default function SiteHeader({ route = pageRoute(window.location.pathname) }) {
   const dialog = useRef(null);
@@ -17,17 +58,16 @@ export default function SiteHeader({ route = pageRoute(window.location.pathname)
   const openMenu = () => { dialog.current.showModal(); setOpen(true); };
   const trapFocus = event => {
     if (event.key !== 'Tab') return;
-    const controls = [...dialog.current.querySelectorAll('button, a[href]')];
+    const controls = [...dialog.current.querySelectorAll('button, a[href]')].filter(control => control.getClientRects().length);
     const first = controls[0], last = controls.at(-1);
     if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   };
-  const renderLinks = (splitRows = false) => navigation.map(([label, href], index) => (
-    <React.Fragment key={href}>
-      <a href={localUrl(href)} aria-current={href === route ? 'page' : undefined}>{label}</a>
-      {splitRows && index === 4 && <span className="nav-row-break" aria-hidden="true"/>}
-    </React.Fragment>
-  ));
+  const renderLinks = (mobile = false) => navigation.map(([label, href]) => {
+    if (href === '/伴走コース/') return null;
+    if (href === '/コーチング/') return <ConsultationMenu key={href} route={route} mobile={mobile} menuVisible={!mobile || open}/>;
+    return <a key={href} href={localUrl(href)} aria-current={href === route ? 'page' : undefined}>{label}</a>;
+  });
   return <header className="salon-header" id="top">
     <div className="header-main">
       <a href={localUrl('/')} className="salon-brand" aria-label={siteName}>
@@ -37,12 +77,12 @@ export default function SiteHeader({ route = pageRoute(window.location.pathname)
       {showBooking && <BookingLink className="header-reservation"/>}
       <button className="menu-toggle" aria-label="メニューを開く" aria-haspopup="dialog" aria-controls="vk-mobile-nav" aria-expanded={open} onClick={openMenu}><span/><span/><span className="menu-word">MENU</span></button>
     </div>
-    <nav className="desktop-navigation" aria-label="メインナビゲーション">{renderLinks(true)}</nav>
+    <nav className="desktop-navigation" aria-label="メインナビゲーション">{renderLinks()}</nav>
     <dialog id="vk-mobile-nav" className="mobile-menu" ref={dialog} onClose={() => setOpen(false)} onKeyDown={trapFocus} aria-label="メインナビゲーション" onClick={event => {if(event.target === dialog.current) dialog.current.close();}}>
       <div className="mobile-menu-inner">
         <button className="menu-close" aria-label="メニューを閉じる" onClick={() => dialog.current.close()}>閉じる <span aria-hidden="true">×</span></button>
         {showBooking && <BookingLink className="menu-reservation"/>}
-        <nav>{renderLinks()}</nav>
+        <nav>{renderLinks(true)}</nav>
       </div>
     </dialog>
   </header>;
