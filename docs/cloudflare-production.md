@@ -7,12 +7,13 @@
 - `ALIAS_ORIGIN=https://suimi-harmony.jp` をフォームの許可送信元に追加。旧ドメイン・確認用URLも引き続き許可する。
 - Turnstileの既存ウィジェットに `suimi-harmony.jp` を追加。
 - 検索向けの正式URL（`SITE_ORIGIN`・ビルド時の `SITE_URL`）は `coaching-therapy.jp` を継続使用。
-- 新ドメインに割り当てられたネームサーバーは `magdalena.ns.cloudflare.com` / `uriah.ns.cloudflare.com`。旧ドメインの `erin` / `major` とは異なるため、購入先での変更が必要。
+- 新ドメインのネームサーバーは `magdalena.ns.cloudflare.com` / `uriah.ns.cloudflare.com`。お名前.comで変更済みで、Cloudflareの有効化も完了。
 - Resendに新ドメインを追加し、発行されたDKIM（`resend._domainkey`）、送信用CNAME（`rsend` / `send`）、DMARCをCloudflare DNSへ登録。CNAMEはDNS onlyとする。Receivingは無効。
 - 今回の新ドメインはResend Forge（Tokyo）。旧ドメインのMX・SPF構成をコピーせず、Resend画面に表示されたレコードを使用する。
 - 既存Resend APIキーはSending access / All domains。新ドメインの認証完了後も同じキーを使用可能。
-- ResendがVerifiedになるまでは `MAIL_FROM` を旧ドメインのまま維持し、認証後に `こころのプライベートサロン <noreply@suimi-harmony.jp>` へ切り替える。
-- 自動テスト22件通過。本番ビルドで24ページを出力。ネームサーバー反映後、新URLの表示・転送・フォーム実送信を確認する。
+- Resendは2026年11月17日21:30（日本時間）にVerified / Readyを確認。`MAIL_FROM` を `こころのプライベートサロン <noreply@suimi-harmony.jp>` へ切り替え済み。新旧ドメイン両方のフォームからこの送信元を使用する。
+- 自動テスト22件通過。本番ビルドで24ページを出力。新URLのトップがHTTPSで200、www・HTTPからHTTPSへの301転送（パス・クエリ保持）を確認。
+- 21:33（日本時間）に新URLの問い合わせフォームから運営者Gmail宛てにテスト送信。受付番号 `APP-91d6f873-d48a-4051-b633-a236d7bbe44c`。通知・自動返信の両方が `noreply@suimi-harmony.jp` から送信され、ResendでDeliveredを確認（受信トレイ／迷惑メールの振り分けは未確認）。
 
 ## mainからの自動公開（2026年11月14日）
 
@@ -36,7 +37,7 @@
 - Redirect Rule `HTTPS for coaching-therapy.jp` でapexのHTTPをHTTPSへ301転送。パス・クエリを保持。
 - `SITE_ORIGIN` とcanonical・OGP・sitemapの正式URLは `https://coaching-therapy.jp`。
 - workers.devは確認用URLとして残し、`PREVIEW_ORIGIN` に明示。検索向けのcanonicalは正式ドメインに統一。
-- ResendはVerified / Ready。送信元は `noreply@coaching-therapy.jp`。受付テスト制限は解除済み。
+- ResendはVerified / Ready。送信元は `noreply@suimi-harmony.jp`（11月17日に切り替え）。受付テスト制限は解除済み。
 - ユーザーは独自ドメインのメールを利用せずGmailのみを使用。旧MX・SPF・既存DKIM等は保持している。
 - 本番Version ID: `bea8905f-bbd9-4b79-aee7-0ff824b51985`（手動切り替え時）。
 

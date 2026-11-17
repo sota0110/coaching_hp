@@ -27,7 +27,7 @@
     "ALIAS_ORIGIN": "https://suimi-harmony.jp",
     "PREVIEW_ORIGIN": "https://coaching-therapy.coaching-therapy-react.workers.dev",
     "NOTIFICATION_EMAIL": "kosodate.sunnyday@gmail.com",
-    "MAIL_FROM": "こころのプライベートサロン <noreply@coaching-therapy.jp>"
+    "MAIL_FROM": "こころのプライベートサロン <noreply@suimi-harmony.jp>"
   },
   "triggers": { "crons": ["*/10 * * * *"] },
   "observability": { "enabled": false }
