@@ -44,7 +44,7 @@ function notificationText(application, data) {
   }).format(new Date(application.created_at * 1000));
   return [
     '新しい申し込み・お問い合わせを受け付けました。', '',
-    `受付番号：${application.id}`, `受付日時：${received}（日本時間）`,
+    `受付日時：${received}（日本時間）`,
     `受付種別：${data.kind === 'private-session' ? 'プライベートコーチング相談のお申し込み' : 'お問い合わせ'}`,
     '', `お名前：${data.name}`, `メールアドレス：${data.email}`,
     `サービス：${data.service}`, `お問い合わせの講座：${data.course || '未入力'}`,
@@ -88,7 +88,7 @@ export function createWorker({ fetch: send = globalThis.fetch, pause = ms => new
         from: env.MAIL_FROM,
         to: [notification ? env.NOTIFICATION_EMAIL : data.email],
         ...(notification ? { reply_to: data.email } : {}),
-        subject: notification ? `【新しい受付】${application.id}` : '【こころのプライベートサロン】受付のお知らせ',
+        subject: notification ? '【新しい受付】お申し込み・お問い合わせ' : '【こころのプライベートサロン】受付のお知らせ',
         text: notification
           ? notificationText(application, data)
           : `${data.kind === 'inquiry' ? autoReplyMessage.replace('お申し込み', 'お問い合わせいただき、') : autoReplyMessage}\n\n${data.kind === 'private-session' ? 'この時点では予約は確定していません。主催者からの日程調整の連絡をお待ちください。\n\n' : ''}このメールは送信専用です。お問い合わせは公式LINEからお願いいたします。\nhttps://line.me/R/ti/p/@615ytuyo`,

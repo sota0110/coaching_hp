@@ -67,7 +67,11 @@ test('accepted applications include all details in owner notification and keep c
   assert(notification.text.includes('2099-12-01 10:00（日本時間）'));
   assert(notification.text.includes('2099-12-02 14:30（日本時間）'));
   assert(notification.text.includes('同意済み'));
-  assert(notification.text.includes(receipt.reference));
+  assert.equal(notification.subject, '【新しい受付】お申し込み・お問い合わせ');
+  for (const mail of messages) {
+    assert(!`${mail.subject}\n${mail.text}`.includes(receipt.reference));
+    assert(!`${mail.subject}\n${mail.text}`.includes('受付番号'));
+  }
   assert.equal(notification.html, undefined);
   assert(!reply.text.includes(input.message));
   assert.match(reply.text, /お申し込みありがとうございます。/);
