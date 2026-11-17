@@ -3,6 +3,7 @@
 .renewal-site .entry-body .gh-flow li > strong { display:block; margin-bottom:8px; }
 .service-facts .service-location-description { margin:0; }
 .service-access-link { margin-top:12px; }
+.renewal-site .entry-body .gh-course-page .gh-hero-copy > .gh-hero-lead { max-width:700px; }
 
 /* Reduced currency labels sit below the amount; regular-size prices are untouched. */
 .price-unit { vertical-align:sub; white-space:nowrap; }
