@@ -99,6 +99,9 @@ export function createPageApp(route) {
     if (node.attrs.id === 'booking-package-locale-ja' || node.tag === 'form') return null;
     if (node.attrs.class?.includes('screen-reader-response') || node.attrs.class?.includes('wpcf7-turnstile') || node.attrs.class?.includes('hidden-fields-container') || node.attrs.class?.includes('wpcf7-response-output')) return null;
     if (node.tag === 'p' && !node.children.length) return null;
+    if (route === '/単発講座/' && node.tag === 'p' && nodeText(node).includes('開催日程や現在の料金、託児については')) {
+      return <p key={key} className="workshop-inquiry-copy sentence-lines"><span>開催日程や現在の料金、託児については、お問い合わせフォームからご確認ください。</span><span>お問い合わせの際に、ご希望の講座名をご記入ください。</span></p>;
+    }
 
     if (node.attrs.id === 'vk-mobile-nav-menu-btn') return null;
     if (node.attrs.id === 'vk-mobile-nav') return null;
