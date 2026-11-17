@@ -267,7 +267,7 @@ export function LaunchNewsArticle() {
 }
 
 export function PublicationNews() {
-  return <article className="publication-article editorial-page" id="book-publication"><p className="section-kicker">出版予定のお知らせ</p><h2>書籍出版のお知らせ</h2><p><time dateTime="2027-05-02">2027年5月2日</time> 出版予定</p><p>このたび、初めての書籍を出版することになりました。</p><p>子育てに一所懸命だった日々。悩んだり、迷ったりしながら自分自身と向き合ってきたこと。そして、15年以上にわたり、たくさんのママたちと出会う中で気づかせてもらったこと。そんな経験を通じて、私が大切にしてきた想いを一冊の本に込めています。</p><p className="quiet-quote">「あなたはもうすでに幸せです」</p><p>そんなメッセージを必要としている方に届けられたら嬉しいです。</p><p>本の内容や、出版までの歩みも、少しずつお知らせしていきます。どうぞ楽しみにお待ちください。</p></article>;
+  return <article className="publication-article editorial-page" id="book-publication"><p className="section-kicker">出版予定のお知らせ</p><h2>書籍出版のお知らせ</h2><p><time dateTime="2027-05-02">2027年5月2日</time> 出版予定</p><p>このたび、初めての書籍を出版することになりました。</p><p className="sentence-lines"><span>子育てに一所懸命だった日々。悩んだり、迷ったりしながら自分自身と向き合ってきたこと。</span><span>そして、15年以上にわたり、たくさんのママたちと出会う中で気づかせてもらったこと。そんな経験を通じて、私が大切にしてきた想いを一冊の本に込めています。</span></p><p className="quiet-quote">「あなたはもうすでに幸せです」</p><p>そんなメッセージを必要としている方に届けられたら嬉しいです。</p><p>本の内容や、出版までの歩みも、少しずつお知らせしていきます。どうぞ楽しみにお待ちください。</p></article>;
 }
 
 function mergeStoryParagraphs(nodes) {
