@@ -1,6 +1,8 @@
 /* Keep explicitly requested line breaks independent of flowing body copy. */
 .first-visit-opening > span, .sentence-lines > span { display:block; }
 .renewal-site .entry-body .gh-flow li > strong { display:block; margin-bottom:8px; }
+.service-facts .service-location-description { margin:0; }
+.service-access-link { margin-top:12px; }
 
 /* Reduced currency labels sit below the amount; regular-size prices are untouched. */
 .price-unit { vertical-align:sub; white-space:nowrap; }

@@ -102,7 +102,7 @@ export function PrivateSessionPage() {
       <h2>対面でのご相談</h2>
       <SalonPhoto scene="hand-massage" className="massage-photo"/>
       <dl className="service-facts">
-        <div><dt>対面</dt><dd>渋谷区代々木のプライベートサロンで行います。詳しい住所は予約確定後に個別にご案内します。<br/><TextLink href="/アクセス/">最寄り駅とアクセスを見る</TextLink></dd></div>
+        <div><dt>対面</dt><dd><p className="service-location-description">渋谷区代々木のプライベートサロンで行います。詳しい住所は予約確定後に個別にご案内します。</p><div className="service-access-link"><TextLink href="/アクセス/">最寄り駅とアクセスを見る</TextLink></div></dd></div>
         <div><dt>ハンドマッサージ</dt><dd>対面でご希望の方にのみ、心と身体をゆるめるハンドマッサージを行います。料金は相談料に含まれます。お話だけのご相談もできます。</dd></div>
       </dl>
     </section>
@@ -236,8 +236,8 @@ export function AccessPage({mapSrc}) {
     <section>
       <h2>最寄り駅</h2>
       <div className="comparison-grid">
-        <article><p className="section-kicker">小田急小田原線</p><h3>代々木八幡駅</h3><TextLink href="https://www.odakyu.jp/station/yoyogi_hachiman/">代々木八幡駅の公式案内</TextLink></article>
-        <article><p className="section-kicker">東京メトロ千代田線</p><h3>代々木公園駅</h3><TextLink href="https://www.tokyometro.jp/station/yoyogi-koen/index.html">代々木公園駅の公式案内</TextLink></article>
+        <article><p className="section-kicker">小田急小田原線</p><h3>代々木八幡駅</h3></article>
+        <article><p className="section-kicker">東京メトロ千代田線</p><h3>代々木公園駅</h3></article>
       </div>
       {mapSrc && <figure className="station-map">
         <iframe src={mapSrc} title="代々木八幡駅周辺の地図" loading="lazy" width="800" height="380" referrerPolicy="strict-origin-when-cross-origin"/>
