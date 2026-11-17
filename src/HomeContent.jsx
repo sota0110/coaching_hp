@@ -15,7 +15,7 @@ export default function HomeContent() {
       <figure className="welcome-banner"><img src={localUrl('/assets/home-salon-banner.jpg')} width="1672" height="941" alt="こころのプライベートサロン スイミーハーモニー。自然光とグリーンに包まれた、花のある明るいサロン" fetchPriority="high"/></figure>
     </section>
     <section className="renewal-section concerns-section" aria-labelledby="concerns-title"><div className="section-heading"><p className="section-kicker">こんなお悩みありませんか？</p><h2 id="concerns-title">毎日頑張っているあなたへ</h2></div>
-      <ul className="concern-list">{['子どもに優しくしたいのに、ついイライラしてしまう。','家族を優先して、自分のことはいつも後回し。','心配や不安で、気持ちが落ち着かない。','誰かに話を聴いてほしいけれど、なかなか話せない。','子育てが一段落して、これからの自分の人生を考えたい。','もっと自分らしく、毎日を楽しみたい。'].map(text=><li key={text}>{text}</li>)}</ul>
+      <ul className="concern-list">{['心配や不安で、気持ちが落ち着かない日がある。','家族を優先して、自分のことはいつも後回し。','子どもに優しくしたいのに、ついイライラしてしまう。','誰かに話を聴いてほしいけれど、なかなか話せない。','子育てが一段落して、これからの自分の人生を考えたい。','もっと自分らしく、毎日を楽しみたい。'].map(text=><li key={text}>{text}</li>)}</ul>
       <div className="reading-width"><p>そんな気持ちを、ひとりで抱え込んでいませんか？</p><p>うまく話せなくても大丈夫。<br/>何を話したらよいかわからなくても大丈夫。</p><p>まずは、今の自分の気持ちに目を向けるところから始めてみませんか？</p></div>
     </section>
     <section className="renewal-section meaning-section" aria-labelledby="meaning-title"><div className="meaning-photo"><img src={localUrl('/assets/2275638f91285181.jpg')} alt="明るい窓辺のグリーンとお茶" loading="lazy" width="819" height="1024"/></div><div className="meaning-copy"><p className="section-kicker">こころを整えるということ</p><h2 id="meaning-title">自分を整えると、<br/><span className="heading-phrase">毎日が少しずつ</span><span className="heading-phrase">変わっていく。</span></h2>

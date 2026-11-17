@@ -1,0 +1,16 @@
+/* Keep explicitly requested line breaks independent of flowing body copy. */
+.first-visit-opening > span, .sentence-lines > span { display:block; }
+.renewal-site .entry-body .gh-flow li > strong { display:block; margin-bottom:8px; }
+
+/* Reduced currency labels sit below the amount; regular-size prices are untouched. */
+.price-unit { vertical-align:sub; white-space:nowrap; }
+
+.footer-copyright { display:block; line-height:1.8; }
+.salon-footer a:hover, .salon-footer a:focus-visible {
+  text-decoration:underline;
+  text-underline-offset:.2em;
+}
+.salon-footer a :is(span,strong,small) {
+  text-decoration:inherit;
+  text-underline-offset:inherit;
+}

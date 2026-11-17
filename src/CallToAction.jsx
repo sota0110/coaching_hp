@@ -14,7 +14,7 @@ export function TextLink({href, children}) {
 export function PriceSummary({compact=false}) {
   const { minutes, regular, line } = sessionPricing;
   return <div className={`price-summary ${compact?'is-compact':''}`} aria-label="プライベートコーチング相談の料金">
-    <p><span>{minutes}分</span><strong>{regular.toLocaleString('ja-JP')}<span>円（税込）</span></strong></p>
+    <p><span>{minutes}分</span><strong>{regular.toLocaleString('ja-JP')}<span className="price-unit heading-phrase">円（税込）</span></strong></p>
     <a className="line-price-link" href={lineUrl} aria-label={`公式LINEで申し込む（${formatPrice(line)}）`}>
       <span>公式LINEから<small>{(regular - line).toLocaleString('ja-JP')}円OFF</small></span>
       <strong>{formatPrice(line)} <span aria-hidden="true">↗</span></strong>

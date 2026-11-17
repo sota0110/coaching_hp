@@ -12,7 +12,7 @@ export function FirstVisitPage() {
   return <div className="editorial-page first-visit-page">
     <header className="editorial-intro">
       <h2>うまく話せなくても、大丈夫です。</h2>
-      <p>「何を話したらよいかわからない」「相談するほどのことなのかな」。そんな気持ちのままでも、お越しいただけます。</p>
+      <p className="first-visit-opening"><span>「何を話したらよいかわからない」「相談するほどのことなのかな」</span><span>そんな気持ちのままでも、お越しいただけます。</span></p>
       <PriceSummary compact/>
     </header>
     <SalonPhoto scene="first-visit-dialogue" className="welcome-gathering"/>
@@ -66,7 +66,7 @@ export function PrivateSessionPage() {
       <p>15年以上にわたる子育て支援の経験と、心理学・コーチング・セラピーの学びを生かし、今の気持ちや考えを一緒に整理していきます。</p>
       <p>うまく言葉にできなくても大丈夫。<br/>話したいことがまとまっていなくても大丈夫です。</p>
       <p>自分では気づいていなかった本音や、本当に大切にしたいことに気づき、これからの自分に必要な一歩を見つけていく時間です。</p>
-      <p>対面でのご相談では、ご希望に応じてハンドマッサージも行っています。心と身体をゆるめ、<span className="session-phrase">ホッとリラックス</span><span className="session-phrase">した時間から</span><span className="session-phrase">始めましょう。</span></p>
+      <p className="sentence-lines"><span>対面でのご相談では、ご希望に応じてハンドマッサージも行っています。</span><span>心と身体をゆるめ、<span className="session-phrase">ホッとリラックス</span><span className="session-phrase">した時間から</span><span className="session-phrase">始めましょう。</span></span></p>
       <p>一度のご相談からお気軽にご利用いただけます。</p>
     </section>
     <section>
@@ -146,7 +146,7 @@ export function BookingPage() {
       <p className="small-note">※お申し込みの送信時点では、予約は確定しておりません。</p>
     </div>
     <BookingForm/>
-    <p className="booking-rate">{sessionPricing.minutes}分・{formatPrice(sessionPricing.regular)} <a href={lineUrl}>公式LINEで申し込む（{formatPrice(sessionPricing.line)}）</a></p>
+    <p className="booking-rate"><a href={lineUrl}>公式LINEで申し込む（{formatPrice(sessionPricing.line)}）</a></p>
   </div>;
 }
 
@@ -211,7 +211,7 @@ export function CourseOverview() {
     <h2 id="continuing-course-rates">コースの回数・期間・料金</h2>
     <div className="course-price-grid">
       {[[3, '約3か月', 39000], [5, '約5か月', 58000], [10, '半年〜1年', 98000]].map(([count, period, price]) => (
-        <div key={count}><h3>{count}回コース</h3><p>{period}</p><strong>{price.toLocaleString('ja-JP')}<small>円（税込）</small></strong></div>
+        <div key={count}><h3>{count}回コース</h3><p>{period}</p><strong>{price.toLocaleString('ja-JP')}<small className="price-unit heading-phrase">円（税込）</small></strong></div>
       ))}
     </div>
     <p className="small-note">1回90分。対面またはZoomで、2週間〜1か月に1回を目安に進めます。</p>

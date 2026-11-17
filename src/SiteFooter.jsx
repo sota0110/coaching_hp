@@ -29,7 +29,7 @@ export default function SiteFooter({route}) {
   const sticky = !formRoutes.has(route) && route !== '/プライバシーポリシー/';
   return <><footer className="salon-footer"><div className="container footer-grid"><div className="footer-brand"><p>{siteName}</p><span>こころを整えることを、もっと日常に。</span><span>渋谷区・代々木｜対面・オンライン対応</span></div>
     <nav aria-label="フッターナビゲーション">{navigation.map(([label,href])=><a key={href} href={localUrl(href)}><HeadingText>{label}</HeadingText></a>)}</nav></div>
-    <div className="container footer-utility"><nav aria-label="その他のご案内">{[['サービスのご案内','/メニュー/'],['よくある質問','/よくある質問/'],['単発講座','/単発講座/'],['メンテナンスコーチング','/メンテナンスセッション/'],['お知らせ','/お知らせ/'],['プライバシーポリシー','/プライバシーポリシー/']].map(([label,href])=><a href={localUrl(href)} key={href}>{label}</a>)}</nav><small>© {new Date().getFullYear()} {siteName}</small></div>
+    <div className="container footer-utility"><nav aria-label="その他のご案内">{[['サービスのご案内','/メニュー/'],['よくある質問','/よくある質問/'],['単発講座','/単発講座/'],['メンテナンスコーチング','/メンテナンスセッション/'],['お知らせ','/お知らせ/'],['プライバシーポリシー','/プライバシーポリシー/']].map(([label,href])=><a href={localUrl(href)} key={href}>{label}</a>)}</nav><small className="footer-copyright"><span className="heading-phrase">{`© ${new Date().getFullYear()} ${siteName}`}</span></small></div>
     <nav className="container footer-social-links" aria-label="SNS・ブログ">
       {socialLinks.map(({ label, account, href }) => <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={`${label}（別タブで開きます）`}>
         <span><strong>{label}</strong><small>{account}</small></span><span aria-hidden="true">↗</span>

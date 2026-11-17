@@ -10,31 +10,38 @@ const consultationLinks = navigation.filter(([, href]) => ['/コーチング/', 
 function ConsultationMenu({ route, mobile = false, menuVisible = true }) {
   const group = useRef(null);
   const trigger = useRef(null);
+  const clickOpened = useRef(false);
   const [expanded, setExpanded] = useState(false);
   const id = mobile ? 'mobile-consultation-links' : 'desktop-consultation-links';
   const active = consultationLinks.some(([, href]) => href === route);
+  const close = () => { clickOpened.current = false; setExpanded(false); };
   useEffect(() => {
-    if (mobile && !menuVisible) setExpanded(false);
+    if (mobile && !menuVisible) close();
   }, [mobile, menuVisible]);
   useEffect(() => {
     if (!expanded) return;
     const closeOutside = event => {
-      if (!group.current?.contains(event.target)) setExpanded(false);
+      if (!group.current?.contains(event.target)) close();
     };
     document.addEventListener('pointerdown', closeOutside);
     return () => document.removeEventListener('pointerdown', closeOutside);
   }, [expanded]);
   return <div ref={group} className={`consultation-menu${active ? ' is-current' : ''}`}
     onPointerEnter={event => { if (!mobile && event.pointerType === 'mouse') setExpanded(true); }}
-    onPointerLeave={event => { if (!mobile && event.pointerType === 'mouse') setExpanded(false); }}
-    onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setExpanded(false); }}
+    onPointerLeave={event => { if (!mobile && event.pointerType === 'mouse' && !clickOpened.current) setExpanded(false); }}
+    onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) close(); }}
     onKeyDown={event => {
       if (event.key === 'Escape' && expanded) {
-        event.preventDefault(); event.stopPropagation(); setExpanded(false); trigger.current.focus();
+        event.preventDefault(); event.stopPropagation(); close(); trigger.current.focus();
       }
     }}>
     <button ref={trigger} type="button" className="consultation-trigger" aria-expanded={expanded} aria-controls={id}
-      onClick={() => setExpanded(value => !value)}>
+      onClick={event => {
+        if (mobile || event.detail === 0) {
+          clickOpened.current = false; setExpanded(value => !value);
+        } else if (clickOpened.current) close();
+        else { clickOpened.current = true; setExpanded(true); }
+      }}>
       <span>1on1相談</span><svg className="consultation-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m2 4 4 4 4-4" stroke="currentColor" strokeWidth="1.5"/></svg>
     </button>
     <div id={id} className="consultation-submenu" hidden={!expanded}>

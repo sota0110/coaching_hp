@@ -8,6 +8,7 @@ import SiteHeader from './SiteHeader';
 import HomeContent from './HomeContent';
 import HeadingText from './HeadingText';
 import SiteFooter from './SiteFooter';
+import './content-adjustments.css';
 import VoicesPage from './VoicesPage';
 import { BookingLink, LineLink, TextLink } from './CallToAction';
 import { extraPages, pageTitles, customPageTitles, siteName, formRoutes, bookingPath, inquiryTopics, therapyInquiryPath, workshopInquiryPath, maintenancePricing, formatPrice } from './site-config';
