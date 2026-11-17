@@ -18,8 +18,8 @@
   .renewal-site .contact-page-header .page-header-title { font-size:26px; }
 }
 
-/* Reduced currency labels sit below the amount; regular-size prices are untouched. */
-.price-unit { vertical-align:sub; white-space:nowrap; }
+/* Align reduced currency labels with the amount's baseline. */
+.price-unit { vertical-align:baseline; white-space:nowrap; }
 
 .footer-copyright { display:block; line-height:1.8; }
 .salon-footer a:hover, .salon-footer a:focus-visible {
