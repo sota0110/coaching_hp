@@ -7,6 +7,9 @@ React 19 / Vite 7、Cloudflare Workers Static Assetsで配信するサイトで�
 
 現在の公開URL: https://coaching-therapy.jp/
 
+追加ドメイン: https://suimi-harmony.jp/ （同じWorkerへ接続。URLを保持して表示）。
+新ドメインのDNS有効化・メール認証の進捗は運用手順を参照してください。
+
 `www` およびHTTPから正式なHTTPS URLへ転送します。workers.devは確認用として残しています。
 
 Cloudflare Workers BuildsをGitHubの `sota0110/coaching_hp` に連携し、`main` へのpushで自動公開します。

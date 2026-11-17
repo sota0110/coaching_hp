@@ -1,5 +1,19 @@
 # Cloudflare無料枠での本番運用
 
+## suimi-harmony.jpの追加（2026年11月17日）
+
+- 同じ `coaching-therapy` Workerに `suimi-harmony.jp` と `www.suimi-harmony.jp` をCustom Domainsとして追加。
+- Redirect Rules `WWW to suimi-harmony.jp` と `HTTPS for suimi-harmony.jp` を有効化。www・HTTPを新ドメインのHTTPSへ301転送し、パスとクエリを保持。
+- `ALIAS_ORIGIN=https://suimi-harmony.jp` をフォームの許可送信元に追加。旧ドメイン・確認用URLも引き続き許可する。
+- Turnstileの既存ウィジェットに `suimi-harmony.jp` を追加。
+- 検索向けの正式URL（`SITE_ORIGIN`・ビルド時の `SITE_URL`）は `coaching-therapy.jp` を継続使用。
+- 新ドメインに割り当てられたネームサーバーは `magdalena.ns.cloudflare.com` / `uriah.ns.cloudflare.com`。旧ドメインの `erin` / `major` とは異なるため、購入先での変更が必要。
+- Resendに新ドメインを追加し、発行されたDKIM（`resend._domainkey`）、送信用CNAME（`rsend` / `send`）、DMARCをCloudflare DNSへ登録。CNAMEはDNS onlyとする。Receivingは無効。
+- 今回の新ドメインはResend Forge（Tokyo）。旧ドメインのMX・SPF構成をコピーせず、Resend画面に表示されたレコードを使用する。
+- 既存Resend APIキーはSending access / All domains。新ドメインの認証完了後も同じキーを使用可能。
+- ResendがVerifiedになるまでは `MAIL_FROM` を旧ドメインのまま維持し、認証後に `こころのプライベートサロン <noreply@suimi-harmony.jp>` へ切り替える。
+- 自動テスト22件通過。本番ビルドで24ページを出力。ネームサーバー反映後、新URLの表示・転送・フォーム実送信を確認する。
+
 ## mainからの自動公開（2026年11月14日）
 
 - Cloudflare Workers Buildsを `sota0110/coaching_hp` のみに連携済み。

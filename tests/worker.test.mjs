@@ -25,12 +25,12 @@ function database() {
   } };
 }
 const application = () => ({ name: 'テスト利用者', email: 'applicant@example.com', kind: 'private-session', service: 'プライベートコーチング相談', firstPreference: '2099-12-01T10:00', secondPreference: '', method: 'オンライン（Zoom）', message: '非公開の相談内容', consent: true, privacyVersion, timeZone: 'Asia/Tokyo', turnstileToken: 'valid-token', website: '' });
-function setup({ turnstile = true, providerStatus = 200 } = {}) {
+function setup({ turnstile = true, providerStatus = 200, hostname = 'coaching-therapy.jp' } = {}) {
   const DB = database(); const calls = []; const waiting = [];
   const env = { DB, SITE_ORIGIN: 'https://coaching-therapy.jp', TURNSTILE_SECRET_KEY: 'test-only', RATE_LIMIT_SALT: 'test-only', RESEND_API_KEY: 'test-only', NOTIFICATION_EMAIL: 'owner@example.com', MAIL_FROM: 'Salon <noreply@example.com>' };
   const worker = createWorker({ pause: async () => {}, fetch: async (url, options) => {
     calls.push({ url, options });
-    return url.includes('turnstile') ? Response.json({ success: turnstile, hostname: 'coaching-therapy.jp', action: 'application' })
+    return url.includes('turnstile') ? Response.json({ success: turnstile, hostname, action: 'application' })
       : Response.json(providerStatus === 200 ? { id: crypto.randomUUID() } : { message: 'temporary failure' }, { status: providerStatus });
   } });
   const ctx = { waitUntil(value) { waiting.push(value); } };
@@ -108,6 +108,23 @@ test('foreign origin, invalid challenge and honeypot cannot save an application'
   assert.equal((await s.post()).status, 400);
   assert.equal(s.DB.sql.prepare('SELECT count(*) AS n FROM applications').get().n, 0);
   assert.equal(s.calls.filter(c => c.url.includes('resend')).length, 0);
+});
+test('alias forms accept only the configured origin with a matching Turnstile hostname', async () => {
+  const s = setup({ hostname: 'suimi-harmony.jp' });
+  const alias = 'https://suimi-harmony.jp';
+  const postAlias = (origin = alias) => s.worker.fetch(new Request(`${alias}/api/applications`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json', Origin: origin, 'Idempotency-Key': crypto.randomUUID() },
+    body: JSON.stringify(application()),
+  }), s.env, s.ctx);
+  assert.equal((await postAlias()).status, 403);
+  s.env.ALIAS_ORIGIN = alias;
+  assert.equal((await postAlias('https://coaching-therapy.jp')).status, 403);
+  assert.equal((await postAlias()).status, 201);
+  await s.finish();
+  assert.equal(s.calls.filter(c => c.url.includes('resend')).length, 2);
+  // A valid token issued for the alias cannot be used on the original domain.
+  assert.equal((await s.post()).status, 400);
+  assert.equal(s.DB.sql.prepare('SELECT count(*) AS n FROM applications').get().n, 1);
 });
 test('provider outage does not lose reception; cron retries using the same provider idempotency keys', async () => {
   const s = setup({ providerStatus: 503 });

@@ -7,7 +7,9 @@
   "preview_urls": false,
   "routes": [
     { "pattern": "coaching-therapy.jp/*", "zone_name": "coaching-therapy.jp" },
-    { "pattern": "www.coaching-therapy.jp/*", "zone_name": "coaching-therapy.jp" }
+    { "pattern": "www.coaching-therapy.jp/*", "zone_name": "coaching-therapy.jp" },
+    { "pattern": "suimi-harmony.jp", "custom_domain": true },
+    { "pattern": "www.suimi-harmony.jp", "custom_domain": true }
   ],
   "assets": {
     "directory": "./dist", "binding": "ASSETS",
@@ -22,6 +24,7 @@
   }],
   "vars": {
     "SITE_ORIGIN": "https://coaching-therapy.jp",
+    "ALIAS_ORIGIN": "https://suimi-harmony.jp",
     "PREVIEW_ORIGIN": "https://coaching-therapy.coaching-therapy-react.workers.dev",
     "NOTIFICATION_EMAIL": "kosodate.sunnyday@gmail.com",
     "MAIL_FROM": "こころのプライベートサロン <noreply@coaching-therapy.jp>"

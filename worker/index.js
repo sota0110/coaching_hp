@@ -117,7 +117,7 @@ export function createWorker({ fetch: send = globalThis.fetch, pause = ms => new
   async function accept(request, env, ctx) {
     if (request.method !== 'POST') return json({ error: 'POSTのみ受け付けています。' }, 405);
     const url = new URL(request.url);
-    const allowed = [env.SITE_ORIGIN, env.PREVIEW_ORIGIN].filter(Boolean);
+    const allowed = [env.SITE_ORIGIN, env.ALIAS_ORIGIN, env.PREVIEW_ORIGIN].filter(Boolean);
     if (request.headers.get('origin') !== url.origin || !allowed.includes(url.origin)) return json({ error: 'この送信元からは受け付けできません。' }, 403);
     if (!env.DB || !env.TURNSTILE_SECRET_KEY || !env.RESEND_API_KEY || !env.RATE_LIMIT_SALT || !validEmail(env.NOTIFICATION_EMAIL) || !env.MAIL_FROM) return json({ error: '現在フォームの受付を準備中です。公式LINEをご利用ください。' }, 503);
     if (!request.headers.get('content-type')?.toLowerCase().startsWith('application/json')) return json({ error: '送信形式をご確認ください。' }, 415);
