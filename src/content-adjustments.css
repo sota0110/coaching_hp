@@ -4,6 +4,19 @@
 .service-facts .service-location-description { margin:0; }
 .service-access-link { margin-top:12px; }
 .renewal-site .entry-body .gh-course-page .gh-hero-copy > .gh-hero-lead { max-width:700px; }
+.gh-profile > .gh-button-wrap { max-width:760px; margin-inline:auto; }
+.renewal-site #root .gh-card-title.course-private-session-title {
+  font-size:clamp(18px,1.6vw,20px); letter-spacing:.02em;
+}
+.course-private-session-title > .heading-phrase { white-space:nowrap; }
+.testimonial { container-type:inline-size; }
+.renewal-site #root .testimonial .voice-family-title { font-size:clamp(14px,7cqi,20px); letter-spacing:0; }
+.voice-family-title > .heading-phrase { white-space:nowrap; }
+.renewal-site .page-header.contact-page-header { padding-block:clamp(40px,5vw,64px); }
+@media (max-width:700px) {
+  .renewal-site .page-header.contact-page-header { padding-block:24px; }
+  .renewal-site .contact-page-header .page-header-title { font-size:26px; }
+}
 
 /* Reduced currency labels sit below the amount; regular-size prices are untouched. */
 .price-unit { vertical-align:sub; white-space:nowrap; }

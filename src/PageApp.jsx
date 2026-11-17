@@ -18,6 +18,7 @@ export function createPageApp(route) {
   const pageFile = pageManifest[route];
 
   const copyCorrections = [
+    ['LINEでの質問・フォロー','LINEでのフォロー'],
     ['お申込み','お申し込み'],['少しづつ','少しずつ'],['届られたら','届けられたら'],['こと大切に','ことを大切に'],
     ['何を大切のしたい','何を大切にしたい'],['考えていいます','考えています'],
     ['基本東的には','基本的には'],['私はどうしたんだろう','私はどうしたいんだろう'],
@@ -88,6 +89,9 @@ export function createPageApp(route) {
       return <React.Fragment key={key}>{node.split(/(プライベート|コーチング|セラピー|お問い合わせ|すみいみゆき|ホッとひと息♡|はじめての方へ|自分らしい|見つける|オリジナル|セッション)/g).map((part, index) => index % 2 ? <span className="heading-phrase" key={index}>{part}</span> : readableText(part,index))}</React.Fragment>;
     }
     if (node.tag === 'style' || node.tag === 'script') return null;
+    if (route === '/コーチング＆セラピー講座/' && node.tag === 'h3' && nodeText(node) === 'プライベートセッション') {
+      return <h3 key={key} className="gh-card-title course-private-session-title"><span className="heading-phrase">プライベートセッション</span></h3>;
+    }
     if (['archive-header', 'comments-area'].includes(node.attrs.class)) return null;
     if (node.attrs.id === 'site-header') return <SiteHeader key={key} node={node}/>;
     if (node.attrs.class?.includes('sub-section') && !node.children.length) return null;
@@ -126,6 +130,7 @@ export function createPageApp(route) {
     }
     if(node.tag === 'a') {
       const label = nodeText(node).trim();
+      if (route === '/メンテナンスセッション/' && label === 'お問い合わせ・ご相談はこちら') return null;
       if(label.includes('メンテナンスコーチングを予約する')) return <a key={key} className="action-button secondary-button" href={localUrl('/maintenance-coaching-contact/')}>メンテナンスコーチングについて問い合わせる<span aria-hidden="true">↗</span></a>;
       if(label.includes('講座を予約する')) return <a key={key} className="action-button" href={localUrl(therapyInquiryPath)}>講座について問い合わせる<span aria-hidden="true">↗</span></a>;
       const privateLink = props.href?.includes('/trial-session-booking/') || props.href?.includes('/coaching-course-contact/') || /お問い合わせ.*ご予約はこちら/.test(label);
@@ -245,7 +250,7 @@ export function createPageApp(route) {
       <a className="skip-link screen-reader-text" href="#main">コンテンツへスキップ</a>
       <SiteHeader route={route}/>
       {route !== '/' && <>
-        <div className="page-header"><div className="container page-header-inner"><h1 className="page-header-title"><HeadingText>{title}</HeadingText></h1></div></div>
+        <div className={`page-header${route === '/contact/' ? ' contact-page-header' : ''}`}><div className="container page-header-inner"><h1 className="page-header-title"><HeadingText>{title}</HeadingText></h1></div></div>
         <nav className="breadcrumb" aria-label="現在の位置"><ol className="container breadcrumb-list">
           <li><a href={localUrl('/')}>ホーム</a></li>
           {(isNewsArchive || route === launchNewsPath) && <li><a href={localUrl('/お知らせ/')}>お知らせ</a></li>}
