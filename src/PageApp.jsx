@@ -89,6 +89,7 @@ export function createPageApp(route) {
       return <React.Fragment key={key}>{node.split(/(プライベート|コーチング|セラピー|お問い合わせ|すみいみゆき|ホッとひと息♡|はじめての方へ|自分らしい|見つける|オリジナル|セッション)/g).map((part, index) => index % 2 ? <span className="heading-phrase" key={index}>{part}</span> : readableText(part,index))}</React.Fragment>;
     }
     if (node.tag === 'style' || node.tag === 'script') return null;
+    if (route === '/メンテナンスセッション/' && node.attrs.class === 'gh-care-mark') return null;
     if (route === '/コーチング＆セラピー講座/' && node.tag === 'h3' && nodeText(node) === 'プライベートセッション') {
       return <h3 key={key} className="gh-card-title course-private-session-title"><span className="heading-phrase">プライベートセッション</span></h3>;
     }
