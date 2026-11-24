@@ -78,6 +78,37 @@ body.renewal-site { font-size:16px; line-height:1.95; }
 .price-summary.is-compact { padding-block:12px; max-width:500px; }
 .price-summary.is-compact > p:first-child strong { font-size:28px; }
 .renewal-section { width:min(var(--width),calc(100% - 80px)); margin:clamp(72px,8vw,112px) auto; }
+.renewal-section.future-message {
+  margin-block-start:clamp(28px,4vw,56px);
+  padding:clamp(36px,6vw,76px) clamp(20px,5vw,64px);
+  border:1px solid var(--line);
+  background:linear-gradient(115deg,#fbf5e8 0%,#f9faf3 48%,var(--soft) 100%);
+  text-align:center;
+}
+.future-message h2 {
+  margin:0 0 clamp(24px,4vw,42px);
+  font-size:clamp(23px,4.2vw,42px);
+  line-height:1.55;
+  letter-spacing:.035em;
+}
+.future-message h2 > span { display:block; }
+.future-message h2::after {
+  content:'';
+  display:block;
+  width:48px;
+  height:2px;
+  margin:22px auto 0;
+  background:#bea26c;
+}
+.future-message-copy p { margin:0; }
+.future-message-copy p + p { margin-top:1em; }
+.future-message-copy blockquote {
+  margin:1.4em 0 .35em;
+  color:var(--green);
+  font:500 clamp(17px,5vw,24px)/1.65 var(--serif);
+  letter-spacing:.01em;
+}
+.future-message-copy p:last-child { margin-top:1.55em; }
 .concerns-section { max-width:980px; }
 .concern-list { display:grid; grid-template-columns:1fr 1fr; gap:0 40px; padding:0; margin:0 0 40px; list-style:none; }
 .concern-list li { position:relative; padding:22px 0 22px 28px; border-bottom:1px solid var(--line); line-height:1.9; }

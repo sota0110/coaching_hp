@@ -14,6 +14,16 @@ export default function HomeContent() {
       </div>
       <figure className="welcome-banner"><img src={localUrl('/assets/home-salon-banner.jpg')} width="1672" height="941" alt="こころのプライベートサロン スイミーハーモニー。自然光とグリーンに包まれた、花のある明るいサロン" fetchPriority="high"/></figure>
     </section>
+    <section className="renewal-section future-message" aria-labelledby="future-message-title">
+      <h2 id="future-message-title"><span>これからの人生は、</span><span>もっと自由に、もっと楽しくなる。</span></h2>
+      <div className="reading-width future-message-copy">
+        <p>自分を知ると、今まで気づかなかった自分の可能性に出会えます。</p>
+        <p>考え方が変わると、毎日の景色が変わり、人との関係も変わっていく。</p>
+        <blockquote>「もっと早く知りたかった！」</blockquote>
+        <p>そんなお声も届いています。</p>
+        <p>自分の可能性を信じて、これからの人生をもっと<span className="heading-phrase">自分らしく楽しみませんか。</span></p>
+      </div>
+    </section>
     <section className="renewal-section concerns-section" aria-labelledby="concerns-title"><div className="section-heading"><p className="section-kicker">こんなお悩みありませんか？</p><h2 id="concerns-title">毎日頑張っているあなたへ</h2></div>
       <ul className="concern-list">{['心配や不安で、気持ちが落ち着かない日がある。','家族を優先して、自分のことはいつも後回し。','子どもに優しくしたいのに、ついイライラしてしまう。','誰かに話を聴いてほしいけれど、なかなか話せない。','子育てが一段落して、これからの自分の人生を考えたい。','もっと自分らしく、毎日を楽しみたい。'].map(text=><li key={text}>{text}</li>)}</ul>
       <div className="reading-width"><p>そんな気持ちを、ひとりで抱え込んでいませんか？</p><p>うまく話せなくても大丈夫。<br/>何を話したらよいかわからなくても大丈夫。</p><p>まずは、今の自分の気持ちに目を向けるところから始めてみませんか？</p></div>
