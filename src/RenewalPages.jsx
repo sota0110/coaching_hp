@@ -220,14 +220,12 @@ export function CourseOverview() {
 }
 
 export function CourseSchedule() {
-  return <section className="course-availability" aria-labelledby="course-schedule">
-    <h2 id="course-schedule">開催・募集のご案内</h2>
-    <p><time dateTime="2026-11-22">2026年11月22日</time>から、公式LINEで先行募集を開始する予定です。開催日程や募集状況は、最新のご案内をご確認ください。</p>
+  return <div className="course-availability">
     <div className="course-schedule-links">
       <TextLink href="#course-levels">初級・中上級の違いを見る</TextLink>
     </div>
     <div className="action-group"><LineLink>公式LINEで募集案内を見る</LineLink><a className="action-button secondary-button" href={localUrl(therapyInquiryPath)}>講座について問い合わせる</a></div>
-  </section>;
+  </div>;
 }
 
 export function AccessPage({mapSrc}) {
